@@ -1,7 +1,7 @@
 include ../../etc/la.conf
 
 NAME=SDL
-VERSION=1.2.7
+VERSION=1.2.8
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://www.libsdl.org/release/
 DIR=$(NAME)-$(VERSION)
@@ -9,9 +9,9 @@ CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/src/sdl-config
-DEPENDENCIES=""
+DEPENDENCIES=
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
@@ -35,5 +35,5 @@ clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@ install

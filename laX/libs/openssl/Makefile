@@ -10,7 +10,8 @@ TARGET=./$(DIR)/libssl.a
 DEPENDENCIES="libs/zlib \
 	     "
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h $(TARGET)
+all: 
+	echo Openssl disabled due to panter mocking.
 $(FILE):
 	wget $(LOCATION)$(FILE)
 	md5sum -c md5
@@ -25,7 +26,6 @@ $(TARGET):
 install: .installed-$(NAME)-$(VERSION)
 .installed-$(NAME)-$(VERSION): 
 	make all
-	cd $(DIR) && make install
 	
 	touch .installed-$(NAME)-$(VERSION)
 clean:

@@ -1,16 +1,19 @@
 include ../../etc/la.conf
-NAME=
-VERSION=
+NAME=openvpn
+VERSION=1.6.0
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=
+LOCATION=$(SOURCEFORGE)/openvpn/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=
+CONFIGUREOPTS+=--with-ssl-headers=$(PREFIX)/include --with-ssl-lib=$(PREFIX)/lib
+ --with-lzo-headers=$(PREFIX)/include --with-lzo-lib=$(PREFIX)/lib
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
-TARGET=
-DEPENDENCIES=
+TARGET=$(DIR)/openvpn
+DEPENDENCIES="libs/openssl \
+	      libs/lzo \
+	     "
 
-all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
@@ -33,5 +36,5 @@ clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-$(DEPENDENCIES): 
-	make -C ../../$@ install
+dependencies:
+	sh ../../etc/checkdep.sh $(DEPENDENCIES)
