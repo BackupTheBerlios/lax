@@ -1,30 +1,25 @@
 include ../../etc/la.conf
-
-NAME=gtk-gnutella
-VERSION=0.93.3
-FILE=$(NAME)-$(VERSION).tar.bz2
-LOCATION=$(SOURCEFORGE)/sourceforge/gtk-gnutella/
-DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS=
+NAME=p0f
+VERSION=2.0.3
+FILE=$(NAME)-$(VERSION).tgz
+LOCATION=http://lcamtuf.coredump.cx/p0f/
+DIR=$(NAME)
+CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
-TARGET=$(DIR)/gtk-gnutella
-DEPENDENCIES="libs/libxml2 \
-	      libs/gtk+ \
-	      libs/glib \
-	      libs/zlib \
-	      libs/libiconv \
-	      "
+TARGET=$(DIR)/p0f
+DEPENDENCIES=
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
-	tar -xjf $(FILE)
+	tar -xvzf $(FILE)
+	mv $(DIR)/config.h $(DIR)/config.h.orig
 
 ./$(DIR)/config.h:
-	cd $(DIR) && export CFLAGS=-I$(PREFIX)/include CPPFLAGS=-I$(PREFIX)/include && ./configure $(CONFIGUREOPTS)
+	sed s-/etc/p0f-$(PREFIX)/etc/p0f- $(DIR)/config.h.orig > $(DIR)/config.h
 
 ./$(TARGET):
 	cd $(DIR) && make all
@@ -32,7 +27,9 @@ install: .installed-$(NAME)-$(VERSION)
 
 .installed-$(NAME)-$(VERSION): 
 	make all
-	cd $(DIR) && make install
+	cp $(DIR)/p0f $(DIR)/p0frep $(PREFIX)/bin
+	mkdir -p $(PREFIX)/etc/p0f
+	cp $(DIR)/*.fp $(PREFIX)/etc/p0f
 	touch .installed-$(NAME)-$(VERSION)
 
 clean:
@@ -40,4 +37,6 @@ clean:
 	rm -rf $(DIR)
 
 dependencies:
+	@echo --> checking dependencies of $(NAME)-$(VERSION)
 	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+	@echo --> installing $(NAME)-$(VERSION)
