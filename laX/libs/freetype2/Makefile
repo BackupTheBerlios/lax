@@ -1,6 +1,6 @@
 include ../../etc/la.conf
 NAME=freetype
-VERSION=2.1.4
+VERSION=2.1.9
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=ftp://gd.tuwien.ac.at/publishing/freetype/freetype2/
 DIR=$(NAME)-$(VERSION)

@@ -15,6 +15,8 @@ DEPENDENCIES=libs/pkgconfig \
 	      libs/glib2 \
 	      libs/pango \
 	      libs/atk \
+	      libs/xcursor \
+	      libs/libXfixes \
 	      
 
 all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)

@@ -1,7 +1,6 @@
 include ../../etc/la.conf
-
-NAME=render
-VERSION=0.8
+NAME=xextensions
+VERSION=1.0.1
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://xlibs.freedesktop.org/release/
 DIR=$(NAME)-$(VERSION)
@@ -10,7 +9,6 @@ CONFIGUREOPTS+=
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=
 DEPENDENCIES=libs/pkgconfig \
-	     
 
 all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
@@ -29,11 +27,11 @@ install: .installed-$(NAME)-$(VERSION)
 .installed-$(NAME)-$(VERSION): 
 	make all
 	cd $(DIR) && make install
-	
 	touch .installed-$(NAME)-$(VERSION)
 
 clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
-$(DEPENDENCIES):
+
+$(DEPENDENCIES): 
 	make -C ../../$@ install
