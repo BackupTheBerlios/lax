@@ -1,14 +1,14 @@
 include ../../etc/la.conf
 
 NAME=libxml2
-VERSION=2.6.7
+VERSION=2.6.15
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=ftp://xmlsoft.org/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
-TARGET=
+TARGET=$(DIR)/libxml.dylib
 DEPENDENCIES="libs/pkgconfig \
 	     "
 

@@ -1,14 +1,14 @@
 include ../../etc/la.conf
 
 NAME=libxslt
-VERSION=1.0.30
+VERSION=1.1.12
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=ftp://ftp.gnome.org/pub/GNOME/sources/libxslt/1.0/
+LOCATION=ftp://xmlsoft.org/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
-TARGET=
+TARGET=$(DIR)/dummy
 DEPENDENCIES="libs/libxml2 \
 	     "
 
