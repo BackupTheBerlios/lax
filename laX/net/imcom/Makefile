@@ -1,22 +1,21 @@
 include ../../etc/la.conf
-NAME=Python
-VERSION=2.3.4
-FILE=$(NAME)-$(VERSION).tar.bz2
-LOCATION=http://www.python.org/ftp/python/$(VERSION)/
+NAME=imcom
+VERSION=1.33
+FILE=$(NAME)-$(VERSION).tar.gz
+LOCATION=http://imcom.floobin.cx/files/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
-CONFIGUREOPTS+=--enable-ipv6
-TARGET=$(DIR)/Python/python
-DEPENDENCIES="libs/expat \
-	     "
+#CONFIGUREOPTS+=--enable-ipv6
+TARGET=$(DIR)/dummy
+DEPENDENCIES=
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
-	tar -xvjf $(FILE)
+	tar -xvzf $(FILE)
 
 ./$(DIR)/config.h:
 	cd $(DIR) && ./configure $(CONFIGUREOPTS)
@@ -35,4 +34,4 @@ clean:
 	rm -rf $(DIR)
 
 dependencies:
-	$(foreach DEP,$(DEPENDENCIES),$(make -C ../../$(DEP) install))
+	sh ../../etc/checkdep.sh $(DEPENDENCIES)
