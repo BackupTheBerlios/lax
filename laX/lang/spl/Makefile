@@ -1,6 +1,6 @@
 include ../../etc/la.conf
 NAME=spl
-VERSION=snapshot-2005-03-25
+VERSION=snapshot-2005-03-28
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://www.clifford.at/spl/snapshots/
 DIR=$(NAME)-$(VERSION)
