@@ -1,7 +1,7 @@
 include ../../etc/la.conf
 
 NAME=libpng
-VERSION=1.2.5
+VERSION=1.2.8
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=$(SOURCEFORGE)/libpng/
 DIR=$(NAME)-$(VERSION)
@@ -9,10 +9,10 @@ CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=
-DEPENDENCIES="libs/zlib \
-	     "
+DEPENDENCIES=libs/zlib \
+	     
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/Makefile ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/Makefile ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
@@ -37,6 +37,5 @@ install: .installed-$(NAME)-$(VERSION)
 clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
-
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@ install
