@@ -1,17 +1,17 @@
 include ../../etc/la.conf
 
 NAME=tiff
-VERSION=v3.5.7
+VERSION=3.7.2
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=ftp://ftp.remotesensing.org/pub/libtiff/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=
+CONFIGUREOPTS+=--with-jpeg-lib-dir=$(PREFIX)/lib --with-jpeg-include-dir=$(PREFIX)/include --disable-shared
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
-TARGET=
+TARGET=$(DIR)/dummy
 DEPENDENCIES=
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
@@ -35,5 +35,5 @@ clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@ install

@@ -1,6 +1,6 @@
 include ../../etc/la.conf
 NAME=fontconfig
-VERSION=2.2.0
+VERSION=2.3.1
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://fontconfig.org/release/
 DIR=$(NAME)-$(VERSION)
@@ -8,13 +8,13 @@ CONFIGUREOPTS+=--with-expat=$(PREFIX) --with-expat-includes=$(PREFIX)/include
 # uncomment the following if option is availible
 #CONFIGUREOPTS=--enable-ipv6
 TARGET=$(DIR)/src/fontconfig
-DEPENDENCIES="libs/freetype2 \
+DEPENDENCIES=libs/freetype2 \
 	      libs/expat \
-	     "
+	     
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
@@ -34,6 +34,5 @@ install: .installed-$(NAME)-$(VERSION)
 clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
-
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@ install

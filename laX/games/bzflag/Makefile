@@ -1,27 +1,24 @@
 include ../../etc/la.conf
-NAME=atk
-VERSION=1.9.0
-FILE=$(NAME)-$(VERSION).tar.bz2
-LOCATION=ftp://ftp.gtk.org/pub/gtk/v2.6/
+NAME=bzflag
+VERSION=2.0.2.20050318
+FILE=$(NAME)-$(VERSION).tar.gz
+LOCATION=$(SOURCEFORGE)/bzflag/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=
+CONFIGUREOPTS+=--with-sdl-prefix=$(PREFIX)
 # uncomment the following if option is availible
-#CONFIGUREOPTS=--enable-ipv6
-TARGET=$(DIR)/dummy
-DEPENDENCIES=libs/glib2 \
-	      libs/pango \
-	      libs/pkgconfig \
-	      
+#CONFIGUREOPTS+=--enable-ipv6
+TARGET=$(DIR)/bzflag
+DEPENDENCIES=libs/sdl
 
 all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
-	tar -xvjf $(FILE)
+	tar -xvzf $(FILE)
 
 ./$(DIR)/config.h:
-	cd $(DIR) && ./configure $(CONFIGUREOPTS)
+	cd $(DIR) && export CFLAGS=-I$(PREFIX)/include CPPFLAGS=-I$(PREFIX)/include && ./configure $(CONFIGUREOPTS)
 
 ./$(TARGET):
 	cd $(DIR) && make all
@@ -36,5 +33,5 @@ clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-$(DEPENDENCIES):
+$(DEPENDENCIES): 
 	make -C ../../$@ install

@@ -1,19 +1,20 @@
 include ../../etc/la.conf
 
 NAME=pango
-VERSION=1.2.5
+VERSION=1.8.0
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=ftp://ftp.gtk.org/pub/gtk/v2.2/
+LOCATION=ftp://ftp.gtk.org/pub/gtk/v2.6/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=
-DEPENDENCIES="libs/glib2 \
+DEPENDENCIES=libs/glib2 \
 	      libs/pkgconfig \
-	     "
+	 	libs/xft \
+	     
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
@@ -36,6 +37,5 @@ install: .installed-$(NAME)-$(VERSION)
 clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
-
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@ install

@@ -1,24 +1,24 @@
 include ../../etc/la.conf
 NAME=gimp
-VERSION=1.2.5
+VERSION=2.2.4
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=ftp://gd.tuwien.ac.at/graphics/gimp/gimp/v1.2/v$(VERSION)/
+LOCATION=ftp://ftp.gimp.org/pub/gimp/v2.2/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=--disable-print --disable-mpeg --disable-static --with-shm=none
+CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS=--enable-ipv6
 TARGET=$(DIR)/gimp
-DEPENDENCIES="libs/gtk+ \
+DEPENDENCIES=libs/gtk2 \
 	      libs/jpeg \
 	      libs/libpng \
 	      libs/libtiff \
 	      libs/libungif \
 	      libs/aalib \
-	      "
+	      
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
@@ -40,5 +40,5 @@ clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@ install
