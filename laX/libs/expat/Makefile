@@ -2,7 +2,7 @@ include ../../etc/la.conf
 NAME=expat
 VERSION=1.95.6
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=http://$(SOURCEFORGE)/sourceforge/expat/
+LOCATION=$(SOURCEFORGE)/sourceforge/expat/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
@@ -10,9 +10,9 @@ CONFIGUREOPTS+=
 TARGET=
 DEPENDENCIES=
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
@@ -32,6 +32,5 @@ install: .installed-$(NAME)-$(VERSION)
 clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
-
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@ install

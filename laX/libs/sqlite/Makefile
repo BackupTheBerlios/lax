@@ -1,14 +1,13 @@
 include ../../etc/la.conf
-
-NAME=pcre
-VERSION=4.2
+NAME=sqlite
+VERSION=3.2.0
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/
+LOCATION=http://www.sqlite.org/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
-TARGET=
+TARGET=$(DIR)/src/libsqlite3.so
 DEPENDENCIES=
 
 all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
@@ -28,12 +27,11 @@ install: .installed-$(NAME)-$(VERSION)
 .installed-$(NAME)-$(VERSION): 
 	make all
 	cd $(DIR) && make install
-	
 	touch .installed-$(NAME)-$(VERSION)
 
 clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-$(DEPENDENCIES):
+$(DEPENDENCIES): 
 	make -C ../../$@ install
