@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+           "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<meta name="GENERATOR" content="TtH 3.33">
+ <style type="text/css"> div.p { margin-top: 7pt;}</style>
+ <style type="text/css"><!--
+ td div.comp { margin-top: -0.6ex; margin-bottom: -1ex;}
+ td div.comb { margin-top: -0.6ex; margin-bottom: -.6ex;}
+ td div.hrcomp { line-height: 0.9; margin-top: -0.8ex; margin-bottom: -1ex;}
+ td div.norm {line-height:normal;}
+ span.roman {font-family: serif; font-style: normal; font-weight: normal;} 
+ span.overacc2 {position: relative;  left: .8em; top: -1.2ex;}
+ span.overacc1 {position: relative;  left: .6em; top: -1.2ex;} --></style>
+
+
+<title>No Title</title>
+
+
+<h3 align="center">Apr 14, 2003
+</h3>
+
+<h3 align="center">Michael&nbsp;Bauer mb@bellevue.cc </h3>
+
+<title> Lazy-Admin Hacking guide</title>
+    
+<h1 align="center">Lazy-Admin Hacking guide </h1>
+  <h2><a name="tth_sEc1">
+1</a>&nbsp;&nbsp;Introduction</h2>
+Lazy-Admin was a set of makefiles written to ease the maintaining of a Firewall. I liked it so much that i decided to extend it a little bit, perhaps it will be usefull somewhen. It contains the following "packages":
+
+<ul>
+<li> The Linuxkernel<br /><br /></li>
+
+<li> grsecurity patches for the Linux-kernel<br /><br /></li>
+
+<li> netfilter + patch-o-matic<br /><br /></li>
+
+<li> snort + snort rules<br /><br /></li>
+
+<li> libpcap (+ 802.11b patches)<br /><br /></li>
+
+<li> Tripwire<br /><br /></li>
+
+<li> Openssh<br /><br /></li>
+
+<li> Openssl<br /><br /></li>
+
+<li> zlib<br /><br /></li>
+
+<li> tcpdump<br /><br /></li>
+
+<li> ethereal<br /><br /></li>
+
+<li> Glib and GTK+ (1.2)<br /><br /></li>
+
+<li> kismet<br /><br /></li>
+</ul>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc2">
+2</a>&nbsp;&nbsp;Packages</h2>
+A "Package" is simply a Directory with a Makefile, the name of the directory is the name of the package. The makefiles contain all the important information for: fetching the file, unpacking the file, configuring and compiling the package and finaly installing the package. At the moment Dependencies are not checked, i'm working on this. MD5 checksums of the packets are checked, if this fails whole make process will abort. It should never happen to you, but when it does, try to get the actual MD5 sum from the vendor.
+
+     <h3><a name="tth_sEc2.1">
+2.1</a>&nbsp;&nbsp;The Makefile</h3>
+usualy a makefile begins with the following lines:
+
+<pre>
+NAME=
+VERSION=
+FILE=$(NAME)-$(VERSION).tar.gz
+LOCATION=
+DIR=$(NAME)-$(VERSION)
+CONFIGUREOPTS=
+TARGET=
+DEPENDENCIES=
+
+</pre>
+This are the general settings of the Makefile, you will usualy only have to modify theese. NAME is the name of the package. VERSION is the recent version of the package. FILE is the Filename of the file to be downloaded. LOCATION is the location where the FILE should be downloaded from (e.q. "ftp://ftp.kernel.org/pub/linux/kernel/v.2.4/") Don't forget the trailing slash. DIR is the directory created if the FILE is unpacked. CONFIGUREOPTS are the options to the ./configure script. TARGET is the target to be created, usually the program or library name (with full relative path!). So if for example there is a new openssh version availible, just cd to openssh edit the Makefile and change VERSION= to the recent version. run make &amp;&amp; make install, and the new openssh package should be installed. To define a new package copy the example Makefile of the doc dir and fill in your settings. Don't forget to create the file md5 with the actual md5 sums in it.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc2.2">
+2.2</a>&nbsp;&nbsp;installing</h3>
+Now how to install or update a package? It's quite easy, just cd to the directory the package is in, type make &amp;&amp; make install and the Packet will be installed. Some packets require special dependencies, or another Package to be remade (for example the patch-o-matic package needs an unpacket and configured kernel (cd to linux and type make linux)). Dependency checking isn't done yet but will follow. To update a package just edit the Makefile and change VERSION= to the recent version. Next step is updating the MD5sum just edit the file md5 od fetch the package from a thrusted server and run md5sum &lt;packagefile&#62; &#62; md5 . Type make &amp;&amp; make install and the package should be updated.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc2.3">
+2.3</a>&nbsp;&nbsp;The Kernelpackage</h3>
+The kernel package is a little bit different, because configuration has to be done different. The configuration of the kernel is in the file linux/linux-config. To configure a new kernel (if you need to) just follow these steps:
+
+<pre>
+cd linux
+make linux
+cd linux
+make menuconfig (or xconfig or config)
+cp .config ../linux-config
+
+</pre>
+This will save the configuration you created to linux-config. You may need to run make again to build the new kernel. There are two different kernel packages: linux-vanilla and linux-grsecurity, linux is only a symlink to one of these two, change the symlink to select a different package.
+
+     <h3><a name="tth_sEc2.4">
+2.4</a>&nbsp;&nbsp;Tripwire</h3>
+Tripwire is an Local intrusion detection system, and as such it is really recommended to install it onto a RO medium (floppy). Make install will install it into /usr/local/tripwire so you might consider the following steps for installation: 
+
+<pre>
+mkdir -r /usr/local/tripwire
+mount /dev/fd0 /usr/local/tripwire
+cd /usr/src/lazy-admin/tripwire
+make &amp;&amp; make install
+umount /usr/local/tripwire
+# now switch on write protection
+mount /dev/fd0 /usr/local/tripwire
+
+</pre>
+there is a crontab in the tripwire directory (tripwire.cron) you may want to install it.
+
+<br /><br /><hr /><small>File translated from
+T<sub><font size="-1">E</font></sub>X
+by <a href="http://hutchinson.belmont.ma.us/tth/">
+T<sub><font size="-1">T</font></sub>H</a>,
+version 3.33.<br />On 14 Apr 2003, 18:35.</small>
+</html>

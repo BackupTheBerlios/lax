@@ -1,0 +1,106 @@
+--- aalib-1.4.0/src/aaedit.c.old	Wed Jul 16 07:35:02 2003
++++ aalib-1.4.0/src/aaedit.c	Wed Jul 16 07:35:40 2003
+@@ -1,6 +1,9 @@
++#include "config.h"
+ #include <string.h>
+ #include <ctype.h>
++#ifdef HAVE_MALLOC_H
+ #include <malloc.h>
++#endif /* HAVE_MALLOC_H */
+ #include "aalib.h"
+ #include "aaint.h"
+ static void aa_editdisplay(struct aa_edit *e)
+--- aalib-1.4.0/src/aakbdreg.c.old	Wed Jul 16 07:36:57 2003
++++ aalib-1.4.0/src/aakbdreg.c	Wed Jul 16 07:37:28 2003
+@@ -1,5 +1,7 @@
+-#include <malloc.h>
+ #include "config.h"
++#ifdef HAVE_MALLOC_H
++#include <malloc.h>
++#endif /* HAVE_MALLOC_H */
+ #include "aalib.h"
+ #include "aaint.h"
+ __AA_CONST struct aa_kbddriver * __AA_CONST aa_kbddrivers[] =
+--- aalib-1.4.0/src/aalib.c.old	Wed Jul 16 07:33:53 2003
++++ aalib-1.4.0/src/aalib.c	Wed Jul 16 07:34:37 2003
+@@ -1,6 +1,9 @@
++#include "config.h"
+ #include <stdio.h>
+ #include <string.h>
++#ifdef HAVE_MALLOC_H
+ #include <malloc.h>
++#endif /* HAVE_MALLOC_H */
+ #include "aalib.h"
+ #include "aaint.h"
+ 
+--- aalib-1.4.0/src/aamoureg.c.old	Wed Jul 16 07:37:51 2003
++++ aalib-1.4.0/src/aamoureg.c	Wed Jul 16 07:38:23 2003
+@@ -1,5 +1,7 @@
+-#include <malloc.h>
+ #include "config.h"
++#ifdef HAVE_MALLOC_H
++#include <malloc.h>
++#endif /* HAVE_MALLOC_H */
+ #include "aalib.h"
+ #include "aaint.h"
+ __AA_CONST struct aa_mousedriver * __AA_CONST aa_mousedrivers[] =
+--- aalib-1.4.0/src/aarec.c.old	Wed Jul 16 07:32:43 2003
++++ aalib-1.4.0/src/aarec.c	Wed Jul 16 07:33:25 2003
+@@ -1,5 +1,8 @@
++#include "config.h"
+ #include <string.h>
++#ifdef HAVE_MALLOC_H
+ #include <malloc.h>
++#endif /* HAVE_MALLOC_H */
+ #include "aalib.h"
+ #include "aaint.h"
+ aa_linkedlist *aa_kbdrecommended = NULL, *aa_mouserecommended = NULL,
+--- aalib-1.4.0/src/aaregist.c.old	Wed Jul 16 07:35:59 2003
++++ aalib-1.4.0/src/aaregist.c	Wed Jul 16 07:36:37 2003
+@@ -1,5 +1,7 @@
+-#include <malloc.h>
+ #include "config.h"
++#ifdef HAVE_MALLOC_H
++#include <malloc.h>
++#endif /* HAVE_MALLOC_H */
+ #include "aalib.h"
+ #include "aaint.h"
+ __AA_CONST struct aa_driver * __AA_CONST aa_drivers[] =
+--- aalib-1.4.0/src/aax.c.old	Wed Jul 16 07:26:07 2003
++++ aalib-1.4.0/src/aax.c	Wed Jul 16 07:29:18 2003
+@@ -1,4 +1,7 @@
++#include "config.h"
++#ifdef HAVE_MALLOC_H
+ #include <malloc.h>
++#endif /*have malloc.h*/
+ #include <stdlib.h>
+ #include <string.h>
+ #include <stdio.h>
+--- aalib-1.4.0/src/aaxkbd.c.old	Wed Jul 16 07:29:56 2003
++++ aalib-1.4.0/src/aaxkbd.c	Wed Jul 16 07:30:44 2003
+@@ -1,8 +1,10 @@
++#include "config.h"
++#ifdef HAVE_MALLOC_H
+ #include <malloc.h>
++#endif /* HAVE_MALLOC_H */
+ #include <stdlib.h>
+ #include <string.h>
+ #include <stdio.h>
+-#include "config.h"
+ #ifdef X11_KBDDRIVER
+ #include <X11/Xlib.h>
+ #include <X11/keysymdef.h>
+--- aalib-1.4.0/src/aaxmouse.c.old	Wed Jul 16 07:31:03 2003
++++ aalib-1.4.0/src/aaxmouse.c	Wed Jul 16 07:40:05 2003
+@@ -1,8 +1,10 @@
++#include "config.h"
++#ifdef HAVE_MALLOC_H
+ #include <malloc.h>
++#endif /* HAVE_MALLOC_H */
+ #include <stdlib.h>
+ #include <string.h>
+ #include <stdio.h>
+-#include "config.h"
+ #ifdef X11_MOUSEDRIVER
+ #include <X11/Xlib.h>
+ #include <X11/keysymdef.h>

@@ -1,0 +1,12 @@
+#patch to zlib 1.1.4 to fix an buffer overrun
+#read http://securityfocus.com/archive/1/312869 for details
+--- zlib-1.1.4/gzio.c.old	Sun May 11 13:18:15 2003
++++ zlib-1.1.4/gzio.c	Sun May 11 13:18:40 2003
+@@ -529,6 +529,7 @@
+     int len;
+ 
+     va_start(va, format);
++#define HAS_vsnprintf    
+ #ifdef HAS_vsnprintf
+     (void)vsnprintf(buf, sizeof(buf), format, va);
+ #else

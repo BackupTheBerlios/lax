@@ -1,0 +1,73 @@
+This is pdfTeX, Version 3.14159-1.00a-pretest-20011114-ojmw (Web2C 7.3.7) (format=pdflatex 2003.2.28)  14 APR 2003 18:34
+**la-hacking.tex
+(./la-hacking.tex{/usr/share/texmf/pdftex/config/pdftex.cfg}
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, n
+ohyphenation, loaded.
+(/usr/share/texmf/tex/latex/base/article.cls
+Document Class: article 2001/04/21 v1.4e Standard LaTeX document class
+(/usr/share/texmf/tex/latex/base/size11.clo
+File: size11.clo 2001/04/21 v1.4e Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf/tex/latex/base/inputenc.sty
+Package: inputenc 2001/07/10 v0.99a Input encoding file 
+
+(/usr/share/texmf/tex/latex/base/latin1.def
+File: latin1.def 2001/07/10 v0.99a Input encoding file 
+)) (./la-hacking.aux)
+\openout1 = `la-hacking.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 9.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 9.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 9.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 13.
+
+(/usr/share/texmf/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 13.
+ [1
+
+{/usr/share/texmf/dvips/config/pdftex.map}] [2] [3] (./la-hacking.aux) ) 
+Here is how much of TeX's memory you used:
+ 295 strings out of 10428
+ 3412 string characters out of 65381
+ 49294 words of memory out of 263001
+ 3354 multiletter control sequences out of 10000+0
+ 8312 words of font info for 30 fonts, out of 400000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 21i,6n,19p,984b,210s stack positions out of 300i,100n,500p,50000b,4000s
+</usr/s
+hare/texmf/fonts/type1/bluesky/cm/cmtt10.pfb></usr/share/texmf/fonts/type1/blue
+sky/cm/cmsy10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr10.pfb></usr/shar
+e/texmf/fonts/type1/bluesky/cm/cmbx12.pfb></usr/share/texmf/fonts/type1/bluesky
+/cm/cmr12.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr17.pfb>
+Output written on la-hacking.pdf (3 pages, 54218 bytes).

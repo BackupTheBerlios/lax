@@ -1,0 +1,233 @@
+--- pkgconfig-0.15.0/glib-1.2.8/giounix.c.old	Sat Jul  5 12:38:54 2003
++++ pkgconfig-0.15.0/glib-1.2.8/giounix.c	Sat Jul  5 12:40:01 2003
+@@ -230,7 +230,7 @@
+       whence = SEEK_END;
+       break;
+     default:
+-      g_warning ("g_io_unix_seek: unknown seek type");
++      g_warning ("g_io_unix_seek: unknown seek type","");
+       return G_IO_ERROR_UNKNOWN;
+     }
+ 
+--- pkgconfig-0.15.0/glib-1.2.8/gmain.c.old	Sat Jul  5 12:40:42 2003
++++ pkgconfig-0.15.0/glib-1.2.8/gmain.c	Sat Jul  5 12:42:48 2003
+@@ -234,7 +234,7 @@
+ 	      if (PeekMessage (&msg, NULL, 0, 0, PM_NOREMOVE))
+ 		ready = WAIT_OBJECT_0;
+ 	      else if (!WaitMessage ())
+-		g_warning ("g_poll: WaitMessage failed");
++		g_warning ("g_poll: WaitMessage failed","");
+ 	      ready = WAIT_OBJECT_0;
+ 	    }
+ 	  else if (timeout == 0)
+@@ -258,7 +258,7 @@
+ 	      if (PeekMessage (&msg, NULL, 0, 0, PM_NOREMOVE))
+ 		ready = WAIT_OBJECT_0;
+ 	      else if ((timer = SetTimer (NULL, 0, timeout, NULL)) == 0)
+-		g_warning ("g_poll: SetTimer failed");
++		g_warning ("g_poll: SetTimer failed","");
+ 	      else
+ 		{
+ 		  /* g_print ("WaitMessage\n"); */
+@@ -281,7 +281,7 @@
+ 					     timeout, QS_ALLINPUT);
+ 	  /* g_print("=%d\n", ready); */
+ 	  if (ready == WAIT_FAILED)
+-	    g_warning ("g_poll: MsgWaitForMultipleObjects failed");
++	    g_warning ("g_poll: MsgWaitForMultipleObjects failed","");
+ 	}
+     }
+   else if (nhandles == 0)
+@@ -298,7 +298,7 @@
+       ready = WaitForMultipleObjects (nhandles, handles, FALSE, timeout);
+       /* g_print("=%d\n", ready); */
+       if (ready == WAIT_FAILED)
+-	g_warning ("g_poll: WaitForMultipleObjects failed");
++	g_warning ("g_poll: WaitForMultipleObjects failed","");
+     }
+ 
+   for (f = fds; f < &fds[nfds]; ++f)
+@@ -719,7 +719,7 @@
+ #ifdef G_THREADS_ENABLED
+   if (poll_waiting)
+     {
+-      g_warning("g_main_iterate(): main loop already active in another thread");
++      g_warning("g_main_iterate(): main loop already active in another thread","");
+       G_UNLOCK (main_loop);
+       return FALSE;
+     }
+@@ -900,7 +900,7 @@
+   if (in_check_or_prepare)
+     {
+       g_warning ("g_main_iteration(): called recursively from within a source's check() or "
+-		 "prepare() member or from a second thread, iteration not possible");
++		 "prepare() member or from a second thread, iteration not possible","");
+       return FALSE;
+     }
+   else
+@@ -926,7 +926,7 @@
+   if (in_check_or_prepare)
+     {
+       g_warning ("g_main_run(): called recursively from within a source's check() or "
+-		 "prepare() member or from a second thread, iteration not possible");
++		 "prepare() member or from a second thread, iteration not possible","");
+       return;
+     }
+   
+--- pkgconfig-0.15.0/glib-1.2.8/gmutex.c.old	Sat Jul  5 12:43:41 2003
++++ pkgconfig-0.15.0/glib-1.2.8/gmutex.c	Sat Jul  5 12:44:08 2003
+@@ -198,5 +198,5 @@
+ static void
+ g_thread_fail (void)
+ {
+-  g_error ("The thread system is not yet initialized.");
++  g_error ("The thread system is not yet initialized.","");
+ }
+--- pkgconfig-0.15.0/glib-1.2.8/gtree.c.old	Sat Jul  5 12:44:54 2003
++++ pkgconfig-0.15.0/glib-1.2.8/gtree.c	Sat Jul  5 12:45:33 2003
+@@ -243,7 +243,7 @@
+       break;
+     
+     case G_LEVEL_ORDER:
+-      g_warning ("g_tree_traverse(): traverse type G_LEVEL_ORDER isn't implemented.");
++      g_warning ("g_tree_traverse(): traverse type G_LEVEL_ORDER isn't implemented.","");
+       break;
+     }
+ }
+--- pkgconfig-0.15.0/glib-1.2.8/testglib.c.old	Sat Jul  5 12:47:01 2003
++++ pkgconfig-0.15.0/glib-1.2.8/testglib.c	Sat Jul  5 12:49:27 2003
+@@ -397,12 +397,12 @@
+     {
+       t = g_list_nth (list, i);
+       if (*((gint*) t->data) != (9 - i))
+-	g_error ("Regular insert failed");
++	g_error ("Regular insert failed","");
+     }
+ 
+   for (i = 0; i < 10; i++)
+     if(g_list_position(list, g_list_nth (list, i)) != i)
+-      g_error("g_list_position does not seem to be the inverse of g_list_nth\n");
++      g_error("g_list_position does not seem to be the inverse of g_list_nth\n","");
+ 
+   g_list_free (list);
+   list = NULL;
+@@ -419,7 +419,7 @@
+     {
+       t = g_list_nth (list, i);
+       if (*((gint*) t->data) != i)
+-         g_error ("Sorted insert failed");
++         g_error ("Sorted insert failed","");
+     }
+ 
+   g_list_free (list);
+@@ -437,7 +437,7 @@
+     {
+       t = g_list_nth (list, i);
+       if (*((gint*) t->data) != (9 - i))
+-         g_error ("Sorted insert failed");
++         g_error ("Sorted insert failed","");
+     }
+ 
+   g_list_free (list);
+@@ -457,7 +457,7 @@
+     {
+       t = g_list_nth (list, i);
+       if (*((gint*) t->data) != (9 - i))
+-         g_error ("Merge sort failed");
++         g_error ("Merge sort failed","");
+     }
+ 
+   g_list_free (list);
+@@ -476,7 +476,7 @@
+     {
+       st = g_slist_nth (slist, i);
+       if (*((gint*) st->data) != (9 - i))
+-	g_error ("failed");
++	g_error ("failed","");
+     }
+ 
+   g_slist_free (slist);
+@@ -494,7 +494,7 @@
+     {
+       st = g_slist_nth (slist, i);
+       if (*((gint*) st->data) != i)
+-         g_error ("Sorted insert failed");
++         g_error ("Sorted insert failed","");
+     }
+ 
+   g_slist_free(slist);
+@@ -512,7 +512,7 @@
+     {
+       st = g_slist_nth (slist, i);
+       if (*((gint*) st->data) != (9 - i))
+-         g_error("Sorted insert failed");
++         g_error("Sorted insert failed","");
+     }
+ 
+   g_slist_free(slist);
+@@ -532,7 +532,7 @@
+     {
+       st = g_slist_nth (slist, i);
+       if (*((gint*) st->data) != (9 - i))
+-         g_error("Sorted insert failed");
++         g_error("Sorted insert failed","");
+     }
+ 
+   g_slist_free(slist);
+@@ -647,7 +647,7 @@
+       tmp_string = g_string_chunk_insert (string_chunk, "hi pete");
+ 
+       if (strcmp ("hi pete", tmp_string) != 0)
+-	g_error ("string chunks are broken.\n");
++	g_error ("string chunks are broken.\n","");
+     }
+ 
+   tmp_string_2 = g_string_chunk_insert_const (string_chunk, tmp_string);
+@@ -899,7 +899,7 @@
+ 
+   g_printerr ("g_log tests:");
+   g_warning ("harmless warning with parameters: %d %s %#x", 42, "Boo", 12345);
+-  g_message ("the next warning is a test:");
++  g_message ("the next warning is a test:","");
+   string = NULL;
+   g_print (string);
+ 
+--- pkgconfig-0.15.0/glib-1.2.8/gthread/gthread.c.old	Sat Jul  5 12:50:33 2003
++++ pkgconfig-0.15.0/glib-1.2.8/gthread/gthread.c	Sat Jul  5 12:51:16 2003
+@@ -51,11 +51,11 @@
+   gboolean supported;
+ 
+ #ifndef	G_THREADS_ENABLED
+-  g_error ("GLib thread support is disabled.");
++  g_error ("GLib thread support is disabled.","");
+ #endif	/* !G_THREADS_ENABLED */
+ 
+   if (thread_system_already_initialized)
+-    g_error ("GThread system may only be initialized once.");
++    g_error ("GThread system may only be initialized once.","");
+     
+   thread_system_already_initialized = TRUE;
+ 
+@@ -91,9 +91,9 @@
+   if (!supported)
+     {
+       if (g_thread_use_default_impl)
+-	g_error ("Threads are not supported on this platform.");
++	g_error ("Threads are not supported on this platform.","");
+       else
+-	g_error ("The supplied thread function vector is invalid.");
++	g_error ("The supplied thread function vector is invalid.","");
+     }
+ 
+   /* now call the thread initialization functions of the different
+--- pkgconfig-0.15.0/glib-1.2.8/tests/string-test.c.old	Sat Jul  5 12:53:05 2003
++++ pkgconfig-0.15.0/glib-1.2.8/tests/string-test.c	Sat Jul  5 12:53:24 2003
+@@ -72,7 +72,7 @@
+       tmp_string = g_string_chunk_insert (string_chunk, "hi pete");
+ 
+       if (strcmp ("hi pete", tmp_string) != 0)
+-	g_error ("string chunks are broken.\n");
++	g_error ("string chunks are broken.\n","");
+     }
+ 
+   tmp_string_2 = g_string_chunk_insert_const (string_chunk, tmp_string);

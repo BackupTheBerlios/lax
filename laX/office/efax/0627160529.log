@@ -1,0 +1,24 @@
+efax: Fri Jun 27 16:05:29 2003 efax v 0.9 Copyright 1999 Ed Casas
+efax: 05:29 compiled Jun 27 2003 16:04:25
+efax: 05:29 argv[0]=efax
+efax: 05:29 argv[1]=-v
+efax: 05:29 argv[2]=ewin
+efax: 05:29 argv[3]=-v
+efax: 05:29 argv[4]=chewmainrxtf
+efax: 05:29 argv[5]=-d/dev/cua1
+efax: 05:29 argv[6]=-x
+efax: 05:29 argv[7]=/var/lock/LCK..cua1
+efax: 05:29 argv[8]=-iZ
+efax: 05:29 argv[9]=-i&FE&D2S7=120
+efax: 05:29 argv[10]=-i&C0
+efax: 05:29 argv[11]=-iM1L0
+efax: 05:29 argv[12]=-l
+efax: 05:29 argv[13]=+1 800 555 5555
+efax: 05:29 argv[14]=-kZ
+efax: 05:29 argv[15]=-r
+efax: 05:29 argv[16]=0627160529
+efax: 05:29 read HDB pid 3949 [      3949<LF>] from /var/lock/LCK..cua1 - stale
+efax: 05:29 removed stale lock /var/lock/LCK..cua1 from pid 3949
+efax: 05:29 created text lock file /var/lock/LCK..cua1
+efax: 05:29 Error: can't open serial port /dev/cua1: No such file or directory
+efax: 05:29 done, returning 2 (unrecoverable error)

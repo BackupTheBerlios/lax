@@ -1,0 +1,67 @@
+--- ngrep/regex-0.12/regex.c	Mon Sep  4 21:14:21 2000
++++ ngrep/regex-0.12/regex.c	Tue Jul 15 16:19:57 2003
+@@ -4744,7 +4744,7 @@
+ 
+    It returns 0 if it succeeds, nonzero if it doesn't.  (See regex.h for
+    the return codes and their meanings.)  */
+-
++#ifndef MACOSX
+ int
+ regcomp (preg, pattern, cflags)
+     regex_t *preg;
+@@ -4804,7 +4804,7 @@
+   
+   return (int) ret;
+ }
+-
++#endif /*MACOSX*/
+ 
+ /* regexec searches for a given pattern, specified by PREG, in the
+    string STRING.
+@@ -4819,7 +4819,7 @@
+    string; if REG_NOTEOL is set, then $ does not match at the end.
+    
+    We return 0 if we find a match and REG_NOMATCH if not.  */
+-
++#ifndef MACOSX
+ int
+ regexec (preg, string, nmatch, pmatch, eflags)
+     const regex_t *preg;
+@@ -4881,7 +4881,7 @@
+   return ret >= 0 ? (int) REG_NOERROR : (int) REG_NOMATCH;
+ }
+ 
+-
++#endif /*MACOSX*/
+ /* Returns a message corresponding to an error code, ERRCODE, returned
+    from either regcomp or regexec.   We don't use PREG here.  */
+ 
+@@ -4928,7 +4928,7 @@
+ 
+ 
+ /* Free dynamically allocated space used by PREG.  */
+-
++#ifndef MACOSX
+ void
+ regfree (preg)
+     regex_t *preg;
+@@ -4949,7 +4949,7 @@
+     free (preg->translate);
+   preg->translate = NULL;
+ }
+-
++#endif /* MACOSX */
+ #endif /* not emacs  */
+ 
+ /*
+--- ngrep/regex-0.12/Makefile.ol	Tue Jul 15 16:23:11 2003
++++ ngrep/regex-0.12/Makefile	Tue Jul 15 16:23:27 2003
+@@ -27,7 +27,7 @@
+ #   -DEXTRACT_MACROS to use the macros EXTRACT_* (as opposed to
+ #           the corresponding C procedures).  If not -DDEBUG, the macros
+ #           are used.
+-CPPFLAGS = 
++CPPFLAGS = -DMACOSX
+ 
+ # Likewise, you can override CFLAGS to optimize, use -Wall, etc.
+ CFLAGS = -g

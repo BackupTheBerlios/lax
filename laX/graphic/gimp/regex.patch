@@ -1,0 +1,72 @@
+--- gimp-1.2.5/app/regex.c.old	Wed Jul 16 14:05:52 2003
++++ gimp-1.2.5/app/regex.c	Wed Jul 16 14:07:41 2003
+@@ -5509,7 +5509,7 @@
+ 
+    It returns 0 if it succeeds, nonzero if it doesn't.  (See regex.h for
+    the return codes and their meanings.)  */
+-
++#ifndef MACOSX
+ int
+ regcomp (preg, pattern, cflags)
+     regex_t *preg;
+@@ -5648,7 +5648,7 @@
+   /* We want zero return to mean success, unlike `re_search'.  */
+   return ret >= 0 ? (int) REG_NOERROR : (int) REG_NOMATCH;
+ }
+-
++#endif /* MACOSX */
+ 
+ /* Returns a message corresponding to an error code, ERRCODE, returned
+    from either regcomp or regexec.   We don't use PREG here.  */
+@@ -5692,7 +5692,7 @@
+ 
+ 
+ /* Free dynamically allocated space used by PREG.  */
+-
++#ifndef MACOSX
+ void
+ regfree (preg)
+     regex_t *preg;
+@@ -5713,5 +5713,5 @@
+     free (preg->translate);
+   preg->translate = NULL;
+ }
+-
++#endif /* MACOSX */
+ #endif /* not emacs  */
+--- gimp-1.2.5/app/regex.c.old	Wed Jul 16 14:05:52 2003
++++ gimp-1.2.5/plug-ins/script-fu/regex.c	Wed Jul 16 14:07:41 2003
+@@ -5509,7 +5509,7 @@
+ 
+    It returns 0 if it succeeds, nonzero if it doesn't.  (See regex.h for
+    the return codes and their meanings.)  */
+-
++#ifndef MACOSX
+ int
+ regcomp (preg, pattern, cflags)
+     regex_t *preg;
+@@ -5648,7 +5648,7 @@
+   /* We want zero return to mean success, unlike `re_search'.  */
+   return ret >= 0 ? (int) REG_NOERROR : (int) REG_NOMATCH;
+ }
+-
++#endif /* MACOSX */
+ 
+ /* Returns a message corresponding to an error code, ERRCODE, returned
+    from either regcomp or regexec.   We don't use PREG here.  */
+@@ -5692,7 +5692,7 @@
+ 
+ 
+ /* Free dynamically allocated space used by PREG.  */
+-
++#ifndef MACOSX
+ void
+ regfree (preg)
+     regex_t *preg;
+@@ -5713,5 +5713,5 @@
+     free (preg->translate);
+   preg->translate = NULL;
+ }
+-
++#endif /* MACOSX */
+ #endif /* not emacs  */
