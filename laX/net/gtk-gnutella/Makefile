@@ -1,9 +1,9 @@
 include ../../etc/la.conf
 
 NAME=gtk-gnutella
-VERSION=0.92.1
+VERSION=0.93.3
 FILE=$(NAME)-$(VERSION).tar.bz2
-LOCATION=http://$(SOURCEFORGE)/sourceforge/gtk-gnutella/
+LOCATION=$(SOURCEFORGE)/sourceforge/gtk-gnutella/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=--with-libiconv-prefix=/opt/la
 # uncomment the following if option is availible
@@ -18,7 +18,7 @@ DEPENDENCIES="libs/libxml2 \
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xjf $(FILE)

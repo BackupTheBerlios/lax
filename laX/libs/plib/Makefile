@@ -1,16 +1,14 @@
 include ../../etc/la.conf
-
-NAME=irssi
-VERSION=0.8.9
+NAME=plib
+VERSION=1.6.0
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=http://de.irssi.org/files/
+LOCATION=http://plib.sourceforge.net/dist/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=
+CONFIGUREOPTS+=--host=ppc
 # uncomment the following if option is availible
-CONFIGUREOPTS+=--enable-ipv6 --with-glib2 --with-openssl-includes=$(PREFIX)/include --with-openssl-libs=$(PREFIX)/lib
-TARGET=$(DIR)/irssi
-DEPENDENCIES="libs/glib2 \
-	      libs/openssl \
+#CONFIGUREOPTS+=--enable-ipv6
+TARGET=$(DIR)/src/util/ul
+DEPENDENCIES="libs/libfreeglut \
 	     "
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
@@ -21,7 +19,7 @@ $(DIR):
 	tar -xvzf $(FILE)
 
 ./$(DIR)/config.h:
-	cd $(DIR) && ./configure $(CONFIGUREOPTS)
+	cd $(DIR) && export CC="gcc -I/usr/X11R6/include -L$(PREFIX)/lib -I$(PREFIX)/include" && ./configure $(CONFIGUREOPTS)
 
 ./$(TARGET):
 	cd $(DIR) && make all
@@ -30,7 +28,6 @@ install: .installed-$(NAME)-$(VERSION)
 .installed-$(NAME)-$(VERSION): 
 	make all
 	cd $(DIR) && make install
-	/sbin/
 	touch .installed-$(NAME)-$(VERSION)
 
 clean:
@@ -38,4 +35,6 @@ clean:
 	rm -rf $(DIR)
 
 dependencies:
+	@echo --> checking dependencies of $(NAME)-$(VERSION)
 	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+	@echo --> installing $(NAME)-$(VERSION)

@@ -1,9 +1,9 @@
 include ../../etc/la.conf
 
 NAME=libxml2
-VERSION=2.5.6
+VERSION=2.6.7
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=ftp://ftp.gnome.org/pub/GNOME/sources/libxml2/2.5/
+LOCATION=ftp://xmlsoft.org/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
@@ -14,7 +14,7 @@ DEPENDENCIES="libs/pkgconfig \
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
