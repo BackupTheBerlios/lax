@@ -18,6 +18,7 @@ $(DIR):
 	tar -xvzf $(FILE)
 
 ./$(DIR)/config.h:
+	patch -p0 < imcom-1.33_mihi.patch
 	cd $(DIR) && ./configure $(CONFIGUREOPTS)
 
 ./$(TARGET):

@@ -1,0 +1,14 @@
+--- imcom-1.33/JabberHandler.py.old	Sun Sep 19 20:22:55 2004
++++ imcom-1.33/JabberHandler.py	Sun Sep 19 20:20:15 2004
+@@ -804,7 +804,10 @@
+       # Body (end) Message Subelement
+       if sl == "body":
+         body = self.elementStack.pop()
+-        msg = self.elementStack.pop()
++	try: 
++          msg = self.elementStack.pop() 
++	except IndexError:
++	  msg = body
+         msg.body = body.text
+         self.elementStack.append(msg)
+         return
