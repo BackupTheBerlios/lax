@@ -1,7 +1,7 @@
 include ../../etc/la.conf
 
 NAME=libpcap
-VERSION=0.7.2
+VERSION=0.8.1
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://www.tcpdump.org/release/
 DIR=$(NAME)-$(VERSION)
@@ -10,7 +10,7 @@ TARGET=./$(DIR)/libpcap.a
 
 all: $(FILE) $(DIR) ./$(DIR)/config.h $(TARGET)
 $(FILE):
-	wget $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
