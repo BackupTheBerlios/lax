@@ -1,8 +1,8 @@
 include ../../etc/la.conf
 NAME=ImageMagick
-VERSION=5.5.6
-FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=ftp://gd.tuwien.ac.at/pub/graphics/ImageMagick/
+VERSION=5.5.7
+FILE=$(NAME)-$(VERSION)-16.tar.gz
+LOCATION=ftp://ftp.imagemagick.org/pub/ImageMagick/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
@@ -18,7 +18,7 @@ DEPENDENCIES="libs/jpeg \
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)

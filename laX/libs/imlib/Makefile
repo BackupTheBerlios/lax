@@ -4,7 +4,7 @@ VERSION=1.9.14
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://ftp.gnome.org/pub/GNOME/sources/imlib/1.9/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=--disable-shm --enable-static=no
+CONFIGUREOPTS+=--disable-shm --enable-static=yes
 # uncomment the following if option is availible
 #CONFIGUREOPTS=--enable-ipv6
 TARGET=$(DIR)/dummy

@@ -1,6 +1,6 @@
 include ../../etc/la.conf
 NAME=atk
-VERSION=1.2.0
+VERSION=1.2.4
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=ftp://ftp.gtk.org/pub/gtk/v2.2/
 DIR=$(NAME)-$(VERSION)
@@ -15,7 +15,7 @@ DEPENDENCIES="libs/glib2 \
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)

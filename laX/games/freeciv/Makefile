@@ -4,11 +4,11 @@ VERSION=1.14.1
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://www.freeciv.de/mirror/ftp.freeciv.org/freeciv/stable/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=--with-included-gettext --with-sdl-prefix=$(PREFIX) --with-gtk-prefix=$(PREFIX) --with-imlib-prefix=$(PREFIX) --enable-client=gtk
+CONFIGUREOPTS+=--with-sdl-prefix=$(PREFIX) --with-gtk-prefix=$(PREFIX) --with-imlib-prefix=$(PREFIX) --enable-client=gtk2 --with-xpm-prefix=/usr/X11R6
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/client/civclient
-DEPENDENCIES="libs/gtk+ \
+DEPENDENCIES="libs/gtk2 \
 	      libs/imlib \
 	      libs/sdl \
 	      libs/sdl_mixer \
@@ -22,7 +22,7 @@ $(DIR):
 	tar -xvzf $(FILE)
 
 ./$(DIR)/config.h:
-	cd $(DIR) && export LDFLAGS="-L$(PREFIX)/lib -L/usr/lib" && export CFLAGS=-I$(PREFIX)/include && export CPPFLAGS=-I$(PREFIX)/include && ./configure $(CONFIGUREOPTS)
+	cd $(DIR) && export LDFLAGS="-L$(PREFIX)/lib -L/usr/lib" && export CFLAGS="-I$(PREFIX)/include"&& export CPPFLAGS=-I$(PREFIX)/include && ./configure $(CONFIGUREOPTS)
 
 ./$(TARGET):
 	cd $(DIR) && make all

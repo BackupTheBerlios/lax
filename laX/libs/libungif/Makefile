@@ -9,17 +9,19 @@ CONFIGUREOPTS+=--host=ppc
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=
-DEPENDENCIES=
+DEPENDENCIES="comp/libtool \
+             "  
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
 
 ./$(DIR)/config.h:
 	cd $(DIR) && ./configure $(CONFIGUREOPTS)
+	cp $(PREFIX)/bin/libtool $(DIR)
 
 ./$(TARGET):
 	cd $(DIR) && make all

@@ -4,7 +4,7 @@ VERSION=2.2.4
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=ftp://ftp.gtk.org/pub/gtk/v2.2/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=--without-demo
+CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS=--enable-ipv6
 TARGET=$(DIR)/dummy
@@ -19,10 +19,11 @@ DEPENDENCIES="libs/pkgconfig \
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
+	patch -p0 <gtk2-macosX.patch
 
 ./$(DIR)/config.h:
 	cd $(DIR) && export CPPFLAGS=-I$(PREFIX)/include && export CFLAGS=-I$(PREFIX)/include && export LDFLAGS=-L$(PREFIX)/lib && ./configure $(CONFIGUREOPTS)

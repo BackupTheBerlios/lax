@@ -1,7 +1,7 @@
 include ../../etc/la.conf
 
 NAME=glib
-VERSION=2.2.2
+VERSION=2.2.3
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=ftp://ftp.gtk.org/pub/gtk/v2.2/
 DIR=$(NAME)-$(VERSION)
@@ -16,13 +16,13 @@ DEPENDENCIES="libs/pkgconfig \
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
 
 ./$(DIR)/config.h:
-	cd $(DIR) && ./configure $(CONFIGUREOPTS)
+	cd $(DIR) && export CPPFLAGS=-I$(PREFIX)/include && export CFLAGS="-L$(PREFIX)/lib -I$(PREFIX)/include" && ./configure $(CONFIGUREOPTS)
 
 ./$(TARGET):
 	cd $(DIR) && make all
