@@ -1,43 +1,37 @@
 include ../../etc/la.conf
-
-NAME=ethereal
-VERSION=0.10.9
+NAME=BitTorrent
+VERSION=4.0.0
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=http://www.ethereal.com/distribution/
+LOCATION=http://www.bittorrent.com/dl/
 DIR=$(NAME)-$(VERSION)
-#CONFIGUREOPTS+=
+CONFIGUREOPTS+=
 # uncomment the following if option is availible
-CONFIGUREOPTS+=--enable-ipv6 --with-ssl --with-zlib --with-ssl  --without-plugins
-TARGET=$(DIR)/ethereal
-DEPENDENCIES=libs/libpcap \
-	      libs/gtk+ \
-	      libs/glib2 \
-	      libs/zlib \
-	      
+#CONFIGUREOPTS+=--enable-ipv6
+TARGET=$(DIR)/dummy
+DEPENDENCIES=
 
-all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
-	ln -s $(DIR) ethereal
 
 ./$(DIR)/config.h:
 	cd $(DIR) && ./configure $(CONFIGUREOPTS)
 
 ./$(TARGET):
-	cd $(DIR) && make all
+	cd $(DIR) && python setup.py build
 install: .installed-$(NAME)-$(VERSION)
 
 .installed-$(NAME)-$(VERSION): 
 	make all
-	cd $(DIR) && make install
+	cd $(DIR) && python setup.py install --prefix=$(PREFIX)
 	touch .installed-$(NAME)-$(VERSION)
 
 clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
-	rm -f ethereal
-$(DEPENDENCIES):
+
+$(DEPENDENCIES): 
 	make -C ../../$@ install

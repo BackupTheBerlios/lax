@@ -1,19 +1,14 @@
 include ../../etc/la.conf
-
-NAME=ethereal
-VERSION=0.10.9
+NAME=libnet
+VERSION=0.10.11
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=http://www.ethereal.com/distribution/
-DIR=$(NAME)-$(VERSION)
-#CONFIGUREOPTS+=
+LOCATION=$(SOURCEFORGE)/libnet/
+DIR=$(NAME)
+CONFIGUREOPTS+=
 # uncomment the following if option is availible
-CONFIGUREOPTS+=--enable-ipv6 --with-ssl --with-zlib --with-ssl  --without-plugins
-TARGET=$(DIR)/ethereal
-DEPENDENCIES=libs/libpcap \
-	      libs/gtk+ \
-	      libs/glib2 \
-	      libs/zlib \
-	      
+#CONFIGUREOPTS+=--enable-ipv6
+TARGET=
+DEPENDENCIES=
 
 all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
@@ -21,7 +16,6 @@ $(FILE):
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
-	ln -s $(DIR) ethereal
 
 ./$(DIR)/config.h:
 	cd $(DIR) && ./configure $(CONFIGUREOPTS)
@@ -38,6 +32,6 @@ install: .installed-$(NAME)-$(VERSION)
 clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
-	rm -f ethereal
-$(DEPENDENCIES):
+
+$(DEPENDENCIES): 
 	make -C ../../$@ install

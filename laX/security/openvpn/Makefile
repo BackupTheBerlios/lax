@@ -9,11 +9,11 @@ CONFIGUREOPTS+=--with-ssl-headers=$(PREFIX)/include --with-ssl-lib=$(PREFIX)/lib
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/openvpn
-DEPENDENCIES="libs/openssl \
+DEPENDENCIES=libs/openssl \
 	      libs/lzo \
-	     "
+	     
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
@@ -36,5 +36,5 @@ clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@ install

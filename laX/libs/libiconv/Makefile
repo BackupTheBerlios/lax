@@ -10,7 +10,7 @@ CONFIGUREOPTS+=
 TARGET=$(DIR)/libiconv
 DEPENDENCIES=
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
@@ -33,7 +33,5 @@ clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-dependencies:
-	@echo --> checking dependencies of $(NAME)-$(VERSION)
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
-	@echo --> installing $(NAME)-$(VERSION)
+$(DEPENDENCIES):
+	make -C ../../$@ install

@@ -4,15 +4,15 @@ VERSION=1.0.1
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://silcnet.org/download/client/sources/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=--with-iconv=/opt/la --with-perl=no --without-silcd
+CONFIGUREOPTS+=--with-iconv=/opt/la --with-perl=no --without-silcd 
 # uncomment the following if option is availible
 CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/lib/libsilc.la
-DEPENDENCIES="libs/glib \
+DEPENDENCIES=libs/glib \
 	      libs/libiconv \
-	     "
+	     
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/irssi/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/irssi/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
@@ -35,6 +35,5 @@ install: .installed-$(NAME)-$(VERSION)
 clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
-
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@ install

@@ -1,20 +1,20 @@
 include ../../etc/la.conf
 
 NAME=glib
-VERSION=2.2.3
+VERSION=2.6.3
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=ftp://ftp.gtk.org/pub/gtk/v2.2/
+LOCATION=ftp://ftp.gtk.org/pub/gtk/v2.6/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/src/.libs/libglib.so
-DEPENDENCIES="libs/pkgconfig \
+DEPENDENCIES=libs/pkgconfig \
 	      libs/gettext \
 	      libs/libiconv \
-	      "
+	      
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
@@ -37,5 +37,5 @@ clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@ install

@@ -1,18 +1,18 @@
 include ../../etc/la.conf
 
 NAME=tcpdump
-VERSION=3.7.2
+VERSION=3.8.3
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://www.tcpdump.org/release/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=--enable-ipv6
 TARGET=./$(DIR)/tcpdump
-DEPENDENCIES="libs/libpcap \
-	     "
+DEPENDENCIES=libs/libpcap \
+	     
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
@@ -31,5 +31,5 @@ clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@ install
