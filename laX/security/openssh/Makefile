@@ -1,11 +1,11 @@
 include ../../etc/la.conf
 
 NAME=openssh
-VERSION=3.7.1p2
+VERSION=3.9p1
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=--enable-ipv6 --with-md5-passwords --with-ssl-dir=/opt/la
+CONFIGUREOPTS+=--enable-ipv6 --with-md5-passwords --with-ssl-dir=$(PREFIX) --with-zlib=$(PREFIX)
 TARGET=./$(DIR)/sshd
 DEPENDENCIES="libs/zlib \
 	      libs/openssl \
@@ -13,7 +13,7 @@ DEPENDENCIES="libs/zlib \
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h $(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)

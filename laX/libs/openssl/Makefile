@@ -1,7 +1,7 @@
 include ../../etc/la.conf
 
 NAME=openssl
-VERSION=0.9.7c
+VERSION=0.9.7e
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://www.openssl.org/source/
 DIR=$(NAME)-$(VERSION)

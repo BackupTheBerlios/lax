@@ -1,21 +1,20 @@
 include ../../etc/la.conf
 
 NAME=zlib
-VERSION=1.1.4
+VERSION=1.2.1
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=http://www.libpng.org/pub/png/src/
+LOCATION=http://www.gzip.org/zlib/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=--shared
 TARGET=./$(DIR)/libz.a
 
 all: $(FILE) $(DIR) ./$(DIR)/config.h $(TARGET)
 $(FILE):
-	wget $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 
 $(DIR):
 	tar -xvzf $(FILE)
-	patch -p0 <zlib-vnsprintf.patch
 
 ./$(DIR)/config.h:
 	cd $(DIR) && ./configure $(CONFIGUREOPTS)
