@@ -1,25 +1,28 @@
 include ../../etc/la.conf
-
-NAME=curl
-VERSION=7.11.2
-FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=http://curl.haxx.se/download/
+NAME=xmame
+VERSION=0.82.1
+FILE=$(NAME)-$(VERSION).tar.bz2
+LOCATION=http://x.mame.net/download/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=--disable-ldap
+CONFIGUREOPTS+=
 # uncomment the following if option is availible
-CONFIGUREOPTS+=--enable-ipv6
-TARGET=
-DEPENDENCIES=
+#CONFIGUREOPTS+=--enable-ipv6
+TARGET=$(DIR)/Dummy
+DEPENDENCIES="libs/sdl \
+              libs/zlib \
+	      libs/sdl_mixer \
+	      "
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) dependencies ./$(DIR)/.configured ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
-	tar -xvzf $(FILE)
+	tar -xvjf $(FILE)
 
-./$(DIR)/config.h:
-	cd $(DIR) && ./configure $(CONFIGUREOPTS)
+./$(DIR)/.configured:
+	cd $(DIR) && patch -p0 <../SDL-makefile.patch
+	touch $(DIR)/.configured
 
 ./$(TARGET):
 	cd $(DIR) && make all

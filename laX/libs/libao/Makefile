@@ -19,7 +19,7 @@ $(DIR):
 	tar -xvzf $(FILE)
 
 ./$(DIR)/config.h:
-	cd $(DIR) && ./configure $(CONFIGUREOPTS)
+	cd $(DIR) && export CFLAGS="-I$(PREFIX)/include" && ./configure $(CONFIGUREOPTS)
 
 ./$(TARGET):
 	cd $(DIR) && make all

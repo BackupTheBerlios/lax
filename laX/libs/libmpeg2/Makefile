@@ -1,15 +1,15 @@
 include ../../etc/la.conf
-
-NAME=curl
-VERSION=7.11.2
-FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=http://curl.haxx.se/download/
+NAME=mpeg2dec
+VERSION=0.4.0
+FILE=$(NAME)-$(VERSION)b.tar.gz
+LOCATION=http://libmpeg2.sourceforge.net/files/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=--disable-ldap
+CONFIGUREOPTS+=--disable-sdl
 # uncomment the following if option is availible
-CONFIGUREOPTS+=--enable-ipv6
-TARGET=
+#CONFIGUREOPTS+=--enable-ipv6
+TARGET=$(DIR)/dummy
 DEPENDENCIES=
+	     
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):

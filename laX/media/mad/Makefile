@@ -3,7 +3,7 @@ include ../../etc/la.conf
 NAME=mad
 VERSION=0.14.2b
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=http://$(SOURCEFORGE)/sourceforge/mad/
+LOCATION=$(SOURCEFORGE)/sourceforge/mad/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
@@ -13,7 +13,7 @@ DEPENDENCIES=
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)

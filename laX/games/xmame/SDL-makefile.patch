@@ -1,0 +1,107 @@
+--- makefile.unix.old	Sun May 23 03:11:06 2004
++++ makefile.unix	Sun May 23 03:19:45 2004
+@@ -112,7 +112,7 @@
+ ###########################################################################
+ 
+ # GCC on x86
+-CFLAGS = -O -Wall -Wno-unused
++#CFLAGS = -O -Wall -Wno-unused
+ 
+ # GCC on x86 with some optimizations
+ # CFLAGS = -O2 -Wall -Wno-unused -mcpu=i686 -fomit-frame-pointer \
+@@ -129,8 +129,8 @@
+ # GCC on OpenStep/PPC or Mac OS X.  If you get immediate errors when you 
+ # build on OS X, remove the -traditional-cpp flag; it caused problems for 
+ # me on OS X 10.3 with GCC 3.3.
+-# CFLAGS = -O2 -Wall  -Wno-unused -funroll-loops -traditional-cpp \
+-#  -fstrength-reduce -fomit-frame-pointer -ffast-math -fsigned-char
++ CFLAGS = -O2 -Wall  -Wno-unused -funroll-loops \
++  -fstrength-reduce -fomit-frame-pointer -ffast-math -fsigned-char
+ 
+ # IRIX MIPSpro with really serious optimization for R10K O2
+ # CFLAGS = -fullwarn -n32 -mips4 -Ofast=ip32_10k -TARG:platform=ip32_10k \
+@@ -195,7 +195,7 @@
+   # Use -O1 if you suspect that -O2 is producing bad code; use -O3 for a 
+   # possible speedup; use -Os for a smaller executable.
+   # CFLAGS += -O2
+-  # CFLAGS += -O1
++   CFLAGS += -O1
+   # CFLAGS += -O3
+   # CFLAGS += -Os
+ 
+@@ -482,7 +482,7 @@
+ # Select destination directory for your compiled program, manual page,
+ # and binary distribution.
+ ifndef PREFIX
+-PREFIX = /usr/local
++PREFIX = /opt/la
+ endif
+ BINDIR = $(PREFIX)/bin
+ MANDIR = $(PREFIX)/man/man6
+@@ -497,7 +497,7 @@
+ ###########################################################################
+ 
+ # i386, GNU asm
+-MY_CPU = i386
++#MY_CPU = i386
+ 
+ # i386, no asm -- needed for the Intel C++ compiler, which does not fully
+ # understand GCC's inline assembly syntax, though you may still enable 
+@@ -518,7 +518,7 @@
+ # MY_CPU = m68k
+ 
+ # Generic RISC (PowerPC, SPARC, HPPA, IBM)
+-# MY_CPU = risc
++ MY_CPU = risc
+ 
+ # Generic RISC, LSB-first (RISC (Ultrix machines) & PlayStation2)
+ # MY_CPU = risc_lsb
+@@ -532,7 +532,7 @@
+ ###########################################################################
+ 
+ # Linux 
+-ARCH  = linux
++#ARCH  = linux
+ 
+ # FreeBSD
+ # ARCH  = freebsd
+@@ -573,7 +573,7 @@
+ # ARCH = beos
+ 
+ # generic UNIX, no sound
+-# ARCH  = generic
++ ARCH  = generic
+ 
+ # (*) For IRIX 6.5 or higher add -DHAVE_SNPRINTF to CFLAGS.irix(_al) in
+ # src/unix/Makefile
+@@ -605,7 +605,7 @@
+ # JOY_PS2 = 1
+ 
+ # SDL joystick support.
+-# JOY_SDL = 1
++ JOY_SDL = 1
+ 
+ # This will enable the use of the Happ Controls UGCI(tm) USB devices'
+ # Coin/Start inputs using the libugci library available from
+@@ -629,7 +629,7 @@
+ # SOUND_ALSA = 1
+ # SOUND_ARTS_TEIRA = 1
+ # SOUND_ARTS_SMOTEK = 1
+-# SOUND_SDL = 1
++ SOUND_SDL = 1
+ # SOUND_WAVEOUT = 1
+ 
+ 
+@@ -641,10 +641,10 @@
+ # use SDL.
+ 
+ # X11
+-DISPLAY_METHOD = x11
++# DISPLAY_METHOD = x11
+ 
+ # SDL library 
+-# DISPLAY_METHOD = SDL
++ DISPLAY_METHOD = SDL
+ 
+ # SVGALib, only supported under Linux
+ # DISPLAY_METHOD = svgalib
