@@ -12,7 +12,6 @@ TARGET=
 DEPENDENCIES="libs/sdl \
 	      libs/libmikmod \
 	      libs/libvorbis \
-	      libs/smpeg \
 	      "
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)

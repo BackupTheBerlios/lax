@@ -8,7 +8,7 @@ DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
-TARGET=
+TARGET=$(DIR)/dummy
 DEPENDENCIES="libs/sdl \
 	      libs/gtk+ \
 	      libs/glib \
@@ -16,7 +16,7 @@ DEPENDENCIES="libs/sdl \
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
