@@ -1,17 +1,17 @@
 include ../../etc/la.conf
 NAME=plib
-VERSION=1.6.0
+VERSION=1.8.4
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://plib.sourceforge.net/dist/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=--host=ppc
+CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/src/util/ul
-DEPENDENCIES="libs/libfreeglut \
-	     "
+DEPENDENCIES=libs/libfreeglut \
+	     
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
@@ -34,7 +34,5 @@ clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-dependencies:
-	@echo --> checking dependencies of $(NAME)-$(VERSION)
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
-	@echo --> installing $(NAME)-$(VERSION)
+$(DEPENDENCIES):
+	make -C ../../$@ install

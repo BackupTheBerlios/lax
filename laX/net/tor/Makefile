@@ -1,17 +1,17 @@
 include ../../etc/la.conf
 NAME=tor
-VERSION=0.0.9.1
+VERSION=0.0.9.4
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://tor.freehaven.net/dist/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=
+CONFIGUREOPTS+=--with-ssl-dir=/usr/
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/tor
-DEPENDENCIES="libs/openssl \
-	     "
+DEPENDENCIES=libs/openssl \
+	     
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/orconfig.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/orconfig.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
@@ -34,5 +34,5 @@ clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@ install
