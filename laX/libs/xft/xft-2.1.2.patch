@@ -1,0 +1,11 @@
+--- xft-2.1.2/Xft.h.old Sun Mar 27 22:18:13 2005
++++ xft-2.1.2/Xft.h     Sun Mar 27 22:20:09 2005
+@@ -37,6 +37,8 @@
+ #define XFT_VERSION    ((XFT_MAJOR * 10000) + (XFT_MINOR * 100) + (XFT_REVISION))
+ #define XftVersion     XFT_VERSION
+ 
++#include <ft2build.h>
++#include FT_FREETYPE_H
+ #include <stdarg.h>
+ #include <freetype/freetype.h>
+ #include <fontconfig/fontconfig.h>

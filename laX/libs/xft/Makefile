@@ -20,6 +20,7 @@ $(FILE):
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
+	patch -p0 <xft-2.1.2.patch
 
 ./$(DIR)/config.h:
 	cd $(DIR) && ./configure $(CONFIGUREOPTS)
