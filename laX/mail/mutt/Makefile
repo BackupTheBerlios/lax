@@ -1,7 +1,7 @@
 include ../../etc/la.conf
 
 NAME=mutt
-VERSION=1.4.1
+VERSION=1.4.2.1
 FILE=$(NAME)-$(VERSION)i.tar.gz
 LOCATION=ftp://gd.tuwien.ac.at/infosys/mail/mutt/
 DIR=$(NAME)-$(VERSION)
@@ -16,7 +16,7 @@ DEPENDENCIES="libs/ncurses \
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
@@ -38,4 +38,6 @@ clean:
 	rm -rf $(DIR)
 
 dependencies:
+	@echo --> checking dependencies of $(NAME)-$(VERSION)
 	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+	@echo --> installing $(NAME)-$(VERSION)

@@ -35,5 +35,5 @@ clean:
 
 dependencies:
 	@echo --> checking dependencies of $(NAME)-$(VERSION)
-	sh ../../etc/checkdep.sh 
+	sh ../../etc/checkdep.sh $(DEPENDENCIES)
 	@echo --> installing $(NAME)-$(VERSION)
