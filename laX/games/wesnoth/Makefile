@@ -1,28 +1,29 @@
 include ../../etc/la.conf
-
-NAME=SDL_mixer
-VERSION=1.2.5
+NAME=wesnoth
+VERSION=0.7
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=http://www.libsdl.org/projects/SDL_mixer/release/
+LOCATION=http://www.wesnoth.org/files/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
-TARGET=$(DIR)/libsdl_mixer.a
+TARGET=$(DIR)/src/wesnoth
 DEPENDENCIES="libs/sdl \
-	      libs/libvorbis \
-	     "
-
+	      libs/sdl_image \
+	      libs/sdl_net \
+	      libs/sdl_ttf \
+	      libs/sdl_mixer \
+	      "
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
 
 ./$(DIR)/config.h:
-	cd $(DIR) && export CFLAGS="-I$(PREFIX)/include -L$(PREFIX)/lib" && ./configure $(CONFIGUREOPTS)
+	cd $(DIR) && ./configure $(CONFIGUREOPTS)
 
 ./$(TARGET):
 	cd $(DIR) && make all
@@ -31,7 +32,6 @@ install: .installed-$(NAME)-$(VERSION)
 .installed-$(NAME)-$(VERSION): 
 	make all
 	cd $(DIR) && make install
-	
 	touch .installed-$(NAME)-$(VERSION)
 
 clean:

@@ -73,24 +73,6 @@
 + ARCH  = generic
  
  # (*) For IRIX 6.5 or higher add -DHAVE_SNPRINTF to CFLAGS.irix(_al) in
- # src/unix/Makefile
-@@ -605,7 +605,7 @@
- # JOY_PS2 = 1
- 
- # SDL joystick support.
--# JOY_SDL = 1
-+ JOY_SDL = 1
- 
- # This will enable the use of the Happ Controls UGCI(tm) USB devices'
- # Coin/Start inputs using the libugci library available from
-@@ -629,7 +629,7 @@
- # SOUND_ALSA = 1
- # SOUND_ARTS_TEIRA = 1
- # SOUND_ARTS_SMOTEK = 1
--# SOUND_SDL = 1
-+ SOUND_SDL = 1
- # SOUND_WAVEOUT = 1
- 
  
 @@ -641,10 +641,10 @@
  # use SDL.

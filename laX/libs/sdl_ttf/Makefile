@@ -1,7 +1,7 @@
 include ../../etc/la.conf
 
 NAME=SDL_ttf
-VERSION=1.2.2
+VERSION=2.0.6
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://www.libsdl.org/projects/SDL_ttf/release/
 DIR=$(NAME)-$(VERSION)
@@ -10,7 +10,7 @@ CONFIGUREOPTS+=
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/libSDL_ttf.a
 DEPENDENCIES="libs/sdl \
-	      libs/freetype \
+	      libs/freetype2 \
 	     "
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)

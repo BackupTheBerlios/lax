@@ -2,7 +2,7 @@ include ../../etc/la.conf
 NAME=freetype
 VERSION=1.3.1
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=http://$(SOURCEFORGE)/sourceforge/freetype/
+LOCATION=$(SOURCEFORGE)/sourceforge/freetype/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=--host=ppc
 # uncomment the following if option is availible
@@ -27,6 +27,7 @@ install: .installed-$(NAME)-$(VERSION)
 
 .installed-$(NAME)-$(VERSION): 
 	make all
+	rm $(DIR)/INSTALL
 	cd $(DIR) && make install
 	touch .installed-$(NAME)-$(VERSION)
 
