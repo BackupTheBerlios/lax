@@ -1,6 +1,6 @@
 include ../../etc/la.conf
 NAME=wesnoth
-VERSION=0.8.8
+VERSION=0.8.9
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://www.wesnoth.org/files/
 DIR=$(NAME)-$(VERSION)

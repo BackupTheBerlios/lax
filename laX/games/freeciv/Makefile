@@ -1,6 +1,6 @@
 include ../../etc/la.conf
 NAME=freeciv
-VERSION=2.0.0-beta6
+VERSION=2.0.0-beta7
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=ftp://ftp.freeciv.org/pub/freeciv/beta/
 DIR=$(NAME)-$(VERSION)
