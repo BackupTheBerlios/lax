@@ -3,7 +3,7 @@ include ../../etc/la.conf
 NAME=libpng
 VERSION=1.2.5
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=http://www.libpng.org/pub/png/src/
+LOCATION=$(SOURCEFORGE)/libpng/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
@@ -14,7 +14,7 @@ DEPENDENCIES="libs/zlib \
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/Makefile ./$(TARGET)
 $(FILE):
-	wget $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)

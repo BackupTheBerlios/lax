@@ -1,7 +1,7 @@
 include ../../etc/la.conf
 
 NAME=SDL
-VERSION=1.2.5
+VERSION=1.2.7
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://www.libsdl.org/release/
 DIR=$(NAME)-$(VERSION)
@@ -13,7 +13,7 @@ DEPENDENCIES=""
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)

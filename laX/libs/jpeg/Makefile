@@ -5,21 +5,22 @@ VERSION=v6b
 FILE=$(NAME).$(VERSION).tar.gz
 LOCATION=ftp://ftp.uu.net/graphics/jpeg/
 DIR=jpeg-6b
-CONFIGUREOPTS+=
+CONFIGUREOPTS+=--enable-shared
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/libjpeg.a
-DEPENDENCIES=""
+DEPENDENCIES="comp/libtool"
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
 
 ./$(DIR)/config.h:
 	cd $(DIR) && ./configure $(CONFIGUREOPTS)
+	cp $(PREFIX)/bin/libtool $(DIR)
 
 ./$(TARGET):
 	cd $(DIR) && make all
@@ -28,8 +29,6 @@ install: .installed-$(NAME)-$(VERSION)
 .installed-$(NAME)-$(VERSION): 
 	make all
 	cd $(DIR) && make install
-	cp $(DIR)/libjpeg.a $(PREFIX)/lib
-	cp $(DIR)/*.h $(PREFIX)/include
 	
 	touch .installed-$(NAME)-$(VERSION)
 

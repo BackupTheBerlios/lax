@@ -2,7 +2,7 @@ include ../../etc/la.conf
 NAME=freeciv
 VERSION=1.14.1
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=ftp://ftp.freeciv.org/freeciv/stable/
+LOCATION=http://www.freeciv.de/mirror/ftp.freeciv.org/freeciv/stable/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=--with-included-gettext --with-sdl-prefix=$(PREFIX) --with-gtk-prefix=$(PREFIX) --with-imlib-prefix=$(PREFIX) --enable-client=gtk
 # uncomment the following if option is availible
@@ -38,4 +38,4 @@ clean:
 	rm -rf $(DIR)
 
 dependencies:
-	$(foreach DEP,$(DEPENDENCIES),$(make -C ../../$(DEP) install))
+	sh ../../etc/checkdep.sh $(DEPENDENCIES)
