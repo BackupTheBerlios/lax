@@ -1,6 +1,6 @@
 include ../../etc/la.conf
 NAME=glob2
-VERSION=0.8.5
+VERSION=0.8.6
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://www.ysagoon.com/glob2/data/
 DIR=$(NAME)-$(VERSION)

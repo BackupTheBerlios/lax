@@ -1,25 +1,22 @@
 include ../../etc/la.conf
-NAME=pygtk
-VERSION=2.2.0
-FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=ftp://ftp.gtk.org/pub/gtk/python/v2.2/
+NAME=libgnugetopt
+VERSION=1.2
+FILE=$(NAME)-$(VERSION).tar.bz2
+LOCATION=ftp://ftp.freebsd.org/pub/FreeBSD/distfiles/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
-TARGET=$(DIR)/dummy
-DEPENDENCIES="libs/gtk2 \
-	      libs/glib2 \
-	      libs/atk \
-	      libs/pango \
-	      "
+TARGET=$(DIR)/libgnugetopt.dylib
+DEPENDENCIES=
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
-	tar -xvzf $(FILE)
+	tar -xvjf $(FILE)
+	cd $(DIR); patch -p0 <../patch-configure.ac ; patch -p0 <../patch-Makefile.am; aclocal -I . ; glibtoolize --automake; automake --add-missing; autoconf 
 
 ./$(DIR)/config.h:
 	cd $(DIR) && ./configure $(CONFIGUREOPTS)

@@ -1,18 +1,15 @@
 include ../../etc/la.conf
-NAME=pygtk
-VERSION=2.2.0
+NAME=lame
+VERSION=3.96.1
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=ftp://ftp.gtk.org/pub/gtk/python/v2.2/
+LOCATION=$(SOURCEFORGE)/lame/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
-TARGET=$(DIR)/dummy
-DEPENDENCIES="libs/gtk2 \
-	      libs/glib2 \
-	      libs/atk \
-	      libs/pango \
-	      "
+TARGET=$(DIR)/frontend/lame
+DEPENDENCIES="libs/gtk+ \
+	     "
 
 all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
