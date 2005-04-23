@@ -1,26 +1,24 @@
 include ../../etc/la.conf
-NAME=silc-client
-VERSION=1.0.2
+NAME=popt
+VERSION=1.6.4
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=http://silcnet.org/download/client/sources/
+LOCATION=ftp://ftp.rpm.org/pub/rpm/dist/rpm-4.0.x/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=--with-iconv=/opt/la --with-perl=no --without-silcd 
+CONFIGUREOPTS+=
 # uncomment the following if option is availible
-CONFIGUREOPTS+=--enable-ipv6
-TARGET=$(DIR)/lib/libsilc.la
-DEPENDENCIES=libs/glib \
-	      libs/libiconv \
-	     
+#CONFIGUREOPTS+=--enable-ipv6
+TARGET=
+DEPENDENCIES=
 
-all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/irssi/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
 
-./$(DIR)/irssi/config.h:
-	cd $(DIR) && export CPPFLAGS=-DMACOSX && ./configure $(CONFIGUREOPTS)
+./$(DIR)/config.h:
+	cd $(DIR) && ./configure $(CONFIGUREOPTS)
 
 ./$(TARGET):
 	cd $(DIR) && make all
@@ -34,5 +32,6 @@ install: .installed-$(NAME)-$(VERSION)
 clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
-$(DEPENDENCIES):
+
+$(DEPENDENCIES): 
 	make -C ../../$@ install

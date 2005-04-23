@@ -9,10 +9,10 @@ CONFIGUREOPTS+=--host=ppc
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=
-DEPENDENCIES="comp/libtool \
-             "  
+DEPENDENCIES=comp/libtool \
+               
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
@@ -37,5 +37,5 @@ clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@ install

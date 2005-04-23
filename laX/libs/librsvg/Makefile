@@ -1,16 +1,20 @@
 include ../../etc/la.conf
-
-NAME=libxslt
-VERSION=1.1.12
+NAME=librsvg
+VERSION=2.9.5
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=ftp://xmlsoft.org/
+LOCATION=http://ftp.gnome.org/pub/GNOME/sources/librsvg/2.9/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
-TARGET=$(DIR)/dummy
+TARGET=
 DEPENDENCIES=libs/libxml2 \
-	     
+	     libs/libart2 \
+	     libs/pango \
+	     libs/pkgconfig \
+	     libs/glib2 \
+	     libs/gtk2 \
+	     libs/popt \
 
 all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
@@ -20,7 +24,7 @@ $(DIR):
 	tar -xvzf $(FILE)
 
 ./$(DIR)/config.h:
-	cd $(DIR) && ./configure $(CONFIGUREOPTS)
+	cd $(DIR) && export CFLAGS=-I$(PREFIX)/include LDFLAGS="-L$(PREFIX)/lib -lfreetype -lfontconfig"  && ./configure $(CONFIGUREOPTS)
 
 ./$(TARGET):
 	cd $(DIR) && make all
@@ -29,11 +33,11 @@ install: .installed-$(NAME)-$(VERSION)
 .installed-$(NAME)-$(VERSION): 
 	make all
 	cd $(DIR) && make install
-	
 	touch .installed-$(NAME)-$(VERSION)
 
 clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
-$(DEPENDENCIES):
+
+$(DEPENDENCIES): 
 	make -C ../../$@ install

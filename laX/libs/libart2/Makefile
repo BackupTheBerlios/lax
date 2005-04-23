@@ -1,7 +1,7 @@
 include ../../etc/la.conf
 
 NAME=libart_lgpl
-VERSION=2.3.11
+VERSION=2.3.17
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://ftp.gnome.org/pub/gnome/sources/libart_lgpl/2.3/
 DIR=$(NAME)-$(VERSION)
@@ -9,11 +9,11 @@ CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=
-DEPENDENCIES=
+DEPENDENCIES=libs/pkgconfig
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
@@ -35,5 +35,5 @@ clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@ install

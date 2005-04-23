@@ -1,18 +1,18 @@
 include ../../etc/la.conf
 
 NAME=libxml2
-VERSION=2.6.15
+VERSION=2.6.18
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=ftp://xmlsoft.org/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
-#CONFIGUREOPTS+=--enable-ipv6
+CONFIGUREOPTS+=--enable-ipv6=yes
 TARGET=$(DIR)/libxml.dylib
-DEPENDENCIES="libs/pkgconfig \
-	     "
+DEPENDENCIES=libs/pkgconfig \
+	     
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
@@ -35,6 +35,5 @@ install: .installed-$(NAME)-$(VERSION)
 clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
-
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@ install

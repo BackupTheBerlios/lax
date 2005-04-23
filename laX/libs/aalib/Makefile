@@ -2,7 +2,7 @@ include ../../etc/la.conf
 NAME=aalib
 VERSION=1.4rc5
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=http://$(SOURCEFORGE)/sourceforge/aa-project/
+LOCATION=$(SOURCEFORGE)/sourceforge/aa-project/
 DIR=$(NAME)-1.4.0
 CONFIGUREOPTS+=--with-x11-driver=no
 # uncomment the following if option is availible
@@ -10,9 +10,9 @@ CONFIGUREOPTS+=--with-x11-driver=no
 TARGET=$(DIR)/src/libaa.la
 DEPENDENCIES=
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/src/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/src/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
@@ -33,6 +33,5 @@ install: .installed-$(NAME)-$(VERSION)
 clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
-
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@ install
