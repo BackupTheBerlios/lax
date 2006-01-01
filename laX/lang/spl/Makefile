@@ -1,16 +1,14 @@
 include ../../etc/la.conf
 NAME=spl
-VERSION=snapshot-2005-03-28
+VERSION=0.9c
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=http://www.clifford.at/spl/snapshots/
+LOCATION=http://www.clifford.at/spl/releases/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/splrun
-DEPENDENCIES=libs/expat \
-	     libs/pcre \
-	     libs/sqlite \
+DEPENDENCIES=libs/pcre \
 
 all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(TARGET)
 $(FILE):
@@ -25,10 +23,7 @@ $(DIR):
 install: .installed-$(NAME)-$(VERSION)
 
 .installed-$(NAME)-$(VERSION): 
-	make all
-	mkdir -p $(PREFIX)/share/spl/modules
-	cp $(TARGET) $(PREFIX)/bin
-	cp $(DIR)/modules/*.so $(DIR)/modules/*.splb $(PREFIX)/share/spl/modules 
+	make -C $(DIR) install
 	touch .installed-$(NAME)-$(VERSION)
 
 clean:
