@@ -1,14 +1,13 @@
 include ../../etc/la.conf
-
-NAME=pcre
-VERSION=6.4
-FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/
+NAME=gawk
+VERSION=3.1.5
+FILE=$(NAME)-$(VERSION).tar.bz2
+LOCATION=ftp://ftp.univie.ac.at/packages/gnu/gawk/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=--enable-utf8
+CONFIGUREOPTS+=--enable-portals --enable-switch
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
-TARGET=$(DIR)/.libs/libpcre.a
+TARGET=$(DIR)/gawk
 DEPENDENCIES=
 
 all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
@@ -16,7 +15,7 @@ $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
-	tar -xvzf $(FILE)
+	tar -xvjf $(FILE)
 
 ./$(DIR)/config.h:
 	cd $(DIR) && ./configure $(CONFIGUREOPTS)
@@ -28,12 +27,11 @@ install: .installed-$(NAME)-$(VERSION)
 .installed-$(NAME)-$(VERSION): 
 	make all
 	cd $(DIR) && make install
-	
 	touch .installed-$(NAME)-$(VERSION)
 
 clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-$(DEPENDENCIES):
+$(DEPENDENCIES): 
 	make -C ../../$@ install

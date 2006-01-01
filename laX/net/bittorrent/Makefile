@@ -1,6 +1,6 @@
 include ../../etc/la.conf
 NAME=BitTorrent
-VERSION=4.0.0
+VERSION=4.0.1
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://www.bittorrent.com/dl/
 DIR=$(NAME)-$(VERSION)

@@ -4,7 +4,7 @@ VERSION=1.0.2
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://silcnet.org/download/client/sources/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=--with-iconv=/opt/la --with-perl=no --without-silcd 
+CONFIGUREOPTS+=--with-iconv=/opt/la --with-perl=no --without-silcd --with-socks5
 # uncomment the following if option is availible
 CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/lib/libsilc.la

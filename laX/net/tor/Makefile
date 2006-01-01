@@ -1,6 +1,6 @@
 include ../../etc/la.conf
 NAME=tor
-VERSION=0.0.9.4
+VERSION=0.1.0.14
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://tor.freehaven.net/dist/
 DIR=$(NAME)-$(VERSION)
@@ -9,6 +9,7 @@ CONFIGUREOPTS+=--with-ssl-dir=/usr/
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/tor
 DEPENDENCIES=libs/openssl \
+	     libs/libevent 
 	     
 
 all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/orconfig.h ./$(TARGET)
@@ -19,7 +20,7 @@ $(DIR):
 	tar -xvzf $(FILE)
 
 ./$(DIR)/orconfig.h:
-	cd $(DIR) && ./configure $(CONFIGUREOPTS)
+	cd $(DIR) && export CFLAGS=-I$(PREFIX)/include LDFLAGS=-L$(PREFIX)/lib && ./configure $(CONFIGUREOPTS)
 
 ./$(TARGET):
 	cd $(DIR) && make all

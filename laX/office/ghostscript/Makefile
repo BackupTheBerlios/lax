@@ -1,7 +1,7 @@
 include ../../etc/la.conf
 
 NAME=ghostscript
-VERSION=7.06
+VERSION=8.15
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/gnu/current/
 DIR=$(NAME)-$(VERSION)
@@ -9,20 +9,19 @@ CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/src/gs
-DEPENDENCIES="libs/zlib \
-	      libs/jpeg \
+DEPENDENCIES= libs/jpeg \
 	      libs/libpng \
-	      "
+	      
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
 
 ./$(DIR)/config.h:
-	cd $(DIR) && ./configure $(CONFIGUREOPTS)
+	cd $(DIR) && export CFLAGS=-I$(PREFIX)/include LDFLAGS=-L$(PREFIX)/lib && ./configure $(CONFIGUREOPTS)
 
 ./$(TARGET):
 	cd $(DIR) && make 
@@ -37,5 +36,5 @@ clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@

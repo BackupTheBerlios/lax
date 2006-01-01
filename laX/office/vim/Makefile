@@ -1,19 +1,19 @@
 include ../../etc/la.conf
 
 NAME=vim
-VERSION=6.2
+VERSION=6.3
 FILE=$(NAME)-$(VERSION).tar.bz2
 LOCATION=ftp://ftp.vim.org/pub/vim/unix/
-DIR=$(NAME)62
-CONFIGUREOPTS+=--without-x --enable-gui=no
+DIR=$(NAME)63
+CONFIGUREOPTS+=--without-x --enable-gui=no --enable-multibyte
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=./$(DIR)/runtime/vim
-DEPENDENCIES=" "
+DEPENDENCIES=
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
-	wget --passive-ftp $(LOCATION)$(FILE)
+	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
 $(DIR):
 	tar -xvjf $(FILE)
@@ -34,5 +34,5 @@ clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@

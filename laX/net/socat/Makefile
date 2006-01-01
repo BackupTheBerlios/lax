@@ -8,10 +8,9 @@ CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/socat
-DEPENDENCIES="libs/openssl \
-	     "
+DEPENDENCIES=
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
@@ -34,5 +33,5 @@ clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@

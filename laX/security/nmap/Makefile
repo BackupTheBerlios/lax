@@ -1,7 +1,7 @@
 include ../../etc/la.conf
 
 NAME=nmap
-VERSION=3.50
+VERSION=3.81
 FILE=$(NAME)-$(VERSION).tgz
 LOCATION=http://download.insecure.org/nmap/dist/
 
@@ -10,11 +10,11 @@ CONFIGUREOPTS+=--with-libpcap=$(PREFIX) --enable-ipv6
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/nmap/nmap
-DEPENDENCIES="libs/libpcap \
+DEPENDENCIES=libs/libpcap \
 	      libs/gtk+ \
-	     "
+	     
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
@@ -36,6 +36,5 @@ install: .installed-$(NAME)-$(VERSION)
 clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
-
-dependencies:
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
+$(DEPENDENCIES):
+	make -C ../../$@ install
