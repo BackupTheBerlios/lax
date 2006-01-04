@@ -1,6 +1,6 @@
 include ../../etc/la.conf
 NAME=gnupg
-VERSION=1.2.4
+VERSION=1.4.2
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://ftp.gnupg.org/gcrypt/gnupg/
 DIR=$(NAME)-$(VERSION)
@@ -8,11 +8,11 @@ CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/g10/gpg
-DEPENDENCIES="libs/zlib \
+DEPENDENCIES=libs/zlib \
 	      libs/libiconv \
-	     "
+	     
 
-all: $(FILE) $(DIR) dependencies ./$(DIR)/config.h ./$(TARGET)
+all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
 	ftp $(LOCATION)$(FILE)
 	md5sum -c md5
@@ -35,7 +35,5 @@ clean:
 	rm -f $(FILE)
 	rm -rf $(DIR)
 
-dependencies:
-	@echo --> checking dependencies
-	sh ../../etc/checkdep.sh $(DEPENDENCIES)
-	@echo --> building $(NAME)-$(VERSION)
+$(DEPENDENCIES):
+	make -C ../../$@ install
