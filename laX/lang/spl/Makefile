@@ -9,6 +9,9 @@ CONFIGUREOPTS+=
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/splrun
 DEPENDENCIES=libs/pcre \
+	     libs/expat \
+	     libs/libxml2 \
+	     libs/libxslt 
 
 all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(TARGET)
 $(FILE):
@@ -19,11 +22,11 @@ $(DIR):
 
 
 ./$(TARGET):
-	cd $(DIR) && make EXTRA_CFLAGS="-I$(PREFIX)/include" EXTRA_LDFLAGS=-L$(PREFIX)/lib all
+	cd $(DIR) && make EXTRA_CFLAGS="-I$(PREFIX)/include" EXTRA_LDFLAGS=-L$(PREFIX)/lib prefix=$(PREFIX) all
 install: .installed-$(NAME)-$(VERSION)
 
 .installed-$(NAME)-$(VERSION): 
-	make -C $(DIR) install
+	make -C $(DIR) prefix=$(PREFIX) install
 	touch .installed-$(NAME)-$(VERSION)
 
 clean:
