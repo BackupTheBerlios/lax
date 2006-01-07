@@ -9,7 +9,7 @@ CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=
-DEPENDENCIES=libs/zlib \
+DEPENDENCIES=
 	     
 
 all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/Makefile ./$(TARGET)

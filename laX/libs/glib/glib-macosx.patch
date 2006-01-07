@@ -1,0 +1,70 @@
+--- glib-1.2.10/gstrfuncs.c.old	2006-01-07 11:04:25.000000000 +0100
++++ glib-1.2.10/gstrfuncs.c	2006-01-07 11:04:37.000000000 +0100
+@@ -867,8 +867,7 @@
+                   /* beware of positional parameters
+                    */
+                 case '$':
+-                  g_warning (G_GNUC_PRETTY_FUNCTION
+-                             "(): unable to handle positional parameters (%%n$)");
++                  g_warning ( "(): unable to handle positional parameters (%%n$)");
+                   len += 1024; /* try adding some safety padding */
+                   break;
+ 
+@@ -1034,7 +1033,7 @@
+                   /*          n   .   dddddddddddddddddddddddd   E   +-  eeee */
+                   conv_len += 1 + 1 + MAX (24, spec.precision) + 1 + 1 + 4;
+                   if (spec.mod_extra_long)
+-                    g_warning (G_GNUC_PRETTY_FUNCTION
++                    g_warning (
+                                "(): unable to handle long double, collecting double only");
+ #ifdef HAVE_LONG_DOUBLE
+ #error need to implement special handling for long double
+@@ -1077,7 +1076,7 @@
+                   conv_done = TRUE;
+                   if (spec.mod_long)
+                     {
+-                      g_warning (G_GNUC_PRETTY_FUNCTION
++                      g_warning (
+                                  "(): unable to handle wide char strings");
+                       len += 1024; /* try adding some safety padding */
+                     }
+@@ -1108,7 +1107,7 @@
+                   conv_len += format - spec_start;
+                   break;
+                 default:
+-                  g_warning (G_GNUC_PRETTY_FUNCTION
++                  g_warning (
+                              "(): unable to handle `%c' while parsing format",
+                              c);
+                   break;
+@@ -1136,7 +1135,7 @@
+ 
+   g_return_if_fail (string != NULL);
+ 
+-  s = string;
++  s = (guchar *)string;
+ 
+   while (*s)
+     {
+@@ -1152,7 +1151,7 @@
+ 
+   g_return_if_fail (string != NULL);
+ 
+-  s = string;
++  s = (guchar *)string;
+ 
+   while (*s)
+     {
+@@ -1311,10 +1310,10 @@
+ 
+   g_return_val_if_fail (string != NULL, NULL);
+ 
+-  for (start = string; *start && isspace (*start); start++)
++  for (start = (guchar *)string; *start && isspace (*start); start++)
+     ;
+ 
+-  g_memmove(string, start, strlen(start) + 1);
++  g_memmove(string, start, strlen((gchar *)start) + 1);
+ 
+   return string;
+ }

@@ -16,9 +16,10 @@ $(FILE):
 	md5sum -c md5
 $(DIR):
 	tar -xvzf $(FILE)
+	patch -p0 <glib-macosx.patch
 
 ./$(DIR)/config.h:
-	cd $(DIR) && export CFLAGS=-I$(PREFIX)/include && ./configure $(CONFIGUREOPTS)
+	cd $(DIR) && export CFLAGS="$(CFLAGS)" && ./configure $(CONFIGUREOPTS)
 
 ./$(TARGET):
 	cd $(DIR) && make all
