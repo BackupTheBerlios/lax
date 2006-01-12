@@ -9,7 +9,7 @@ CONFIGUREOPTS+=--enable-shared
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/libjpeg.a
-DEPENDENCIES=comp/libtool
+DEPENDENCIES=
 
 all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
@@ -20,7 +20,6 @@ $(DIR):
 
 ./$(DIR)/config.h:
 	cd $(DIR) && ./configure $(CONFIGUREOPTS)
-	cp $(PREFIX)/bin/libtool $(DIR)
 
 ./$(TARGET):
 	cd $(DIR) && make all

@@ -8,7 +8,7 @@ CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS=--enable-ipv6
 TARGET=src/libfreetype.a
-DEPENDENCIES=libs/zlib \
+DEPENDENCIES=
 	     
 
 all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)

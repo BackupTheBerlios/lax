@@ -1,7 +1,7 @@
 include ../../etc/la.conf
 
 NAME=tiff
-VERSION=3.7.2
+VERSION=3.8.0
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=ftp://ftp.remotesensing.org/pub/libtiff/
 DIR=$(NAME)-$(VERSION)

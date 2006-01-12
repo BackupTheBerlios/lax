@@ -8,8 +8,7 @@ CONFIGUREOPTS+=
 # uncomment the following if option is availible
 #CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/g10/gpg
-DEPENDENCIES=libs/zlib \
-	      libs/libiconv \
+DEPENDENCIES=
 	     
 
 all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)

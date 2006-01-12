@@ -1,9 +1,9 @@
 include ../../etc/la.conf
 
-NAME=pkgconfig
-VERSION=0.15.0
+NAME=pkg-config
+VERSION=0.19
 FILE=$(NAME)-$(VERSION).tar.gz
-LOCATION=http://www.freedesktop.org/software/pkgconfig/releases/
+LOCATION=http://pkgconfig.freedesktop.org/releases/
 DIR=$(NAME)-$(VERSION)
 CONFIGUREOPTS+=
 # uncomment the following if option is availible
@@ -19,7 +19,6 @@ $(DIR):
 	tar -xvzf $(FILE)
 
 ./$(DIR)/config.h:
-	patch -p0 < pkgconfig-X.patch
 	cd $(DIR) && export CFLAGS=-I$(PREFIX)/include && ./configure $(CONFIGUREOPTS)
 
 ./$(TARGET):

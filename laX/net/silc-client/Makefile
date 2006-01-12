@@ -1,15 +1,17 @@
 include ../../etc/la.conf
 NAME=silc-client
-VERSION=1.0.2
+VERSION=1.0.3
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=http://silcnet.org/download/client/sources/
 DIR=$(NAME)-$(VERSION)
-CONFIGUREOPTS+=--with-iconv=/opt/la --with-perl=no --without-silcd --with-socks5
+CONFIGUREOPTS+=--with-perl=no --without-silcd 
 # uncomment the following if option is availible
 CONFIGUREOPTS+=--enable-ipv6
 TARGET=$(DIR)/lib/libsilc.la
+CPPFLAGS=-DMACOSX
+CFLAGS=-O0
 DEPENDENCIES=libs/glib \
-	      libs/libiconv \
+	    
 	     
 
 all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/irssi/config.h ./$(TARGET)
@@ -20,7 +22,7 @@ $(DIR):
 	tar -xvzf $(FILE)
 
 ./$(DIR)/irssi/config.h:
-	cd $(DIR) && export CPPFLAGS=-DMACOSX && ./configure $(CONFIGUREOPTS)
+	cd $(DIR) && export CFLAGS="$(CFLAGS)" CPPFLAGS="$(CPPFLAGS)" && ./configure $(CONFIGUREOPTS)
 
 ./$(TARGET):
 	cd $(DIR) && make all

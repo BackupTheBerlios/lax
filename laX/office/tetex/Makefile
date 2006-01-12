@@ -10,8 +10,7 @@ CONFIGUREOPTS+=--bindir=$(PREFIX)/bin --with-system-t1lib --with-system-zlib --w
 #CONFIGUREOPTS+=--enable-ipv6
 MFFILE=$(NAME)-texmf-$(VERSION).tar.gz
 TARGET=$(DIR)/texk/tetex/tetex
-DEPENDENCIES=libs/zlib \
-	      libs/libpng \
+DEPENDENCIES= libs/libpng \
 	      libs/t1lib \
 	     
 
@@ -27,7 +26,7 @@ $(DIR):
 	tar -xvzf $(FILE)
 
 ./$(DIR)/config.h:
-	cd $(DIR) && ./configure $(CONFIGUREOPTS)
+	cd $(DIR) && export CFLAGS="$(CFLAGS)" &&./configure $(CONFIGUREOPTS)
 
 ./$(TARGET):
 	cd $(DIR) && make all

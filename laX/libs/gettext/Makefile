@@ -1,7 +1,7 @@
 include ../../etc/la.conf
 
 NAME=gettext
-VERSION=0.14
+VERSION=0.14.5
 FILE=$(NAME)-$(VERSION).tar.gz
 LOCATION=ftp://ftp.gnu.org/pub/gnu/gettext/
 DIR=$(NAME)-$(VERSION)

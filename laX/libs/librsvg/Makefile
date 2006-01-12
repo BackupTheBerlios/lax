@@ -10,11 +10,7 @@ CONFIGUREOPTS+=
 TARGET=
 DEPENDENCIES=libs/libxml2 \
 	     libs/libart2 \
-	     libs/pango \
 	     libs/pkgconfig \
-	     libs/glib2 \
-	     libs/gtk2 \
-	     libs/popt \
 
 all: $(FILE) $(DIR) $(DEPENDENCIES) ./$(DIR)/config.h ./$(TARGET)
 $(FILE):
@@ -24,7 +20,7 @@ $(DIR):
 	tar -xvzf $(FILE)
 
 ./$(DIR)/config.h:
-	cd $(DIR) && export CFLAGS=-I$(PREFIX)/include LDFLAGS="-L$(PREFIX)/lib -lfreetype -lfontconfig"  && ./configure $(CONFIGUREOPTS)
+	cd $(DIR) && export CFLAGS=-I$(PREFIX)/include LDFLAGS="-L$(PREFIX)/lib -lfreetype -lfontconfig -framework Cocoa"  && ./configure $(CONFIGUREOPTS)
 
 ./$(TARGET):
 	cd $(DIR) && make all
